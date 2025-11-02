@@ -22,7 +22,7 @@ h2 {
 color: var(--dark);
 
 }
-/* ======= HEADER ======= */
+/* ======= HEADER E MENU ======= */
 .header {
   background-color: var(--dark);
   border-bottom: 3px solid var(--red);
@@ -70,8 +70,7 @@ color: var(--dark);
   color: var(--red);
 }
 
-
-/* MOBILE NAV */
+/* ======= MOBILE NAV ======= */
 .mobile-nav-toggle {
   display: none;
   color: var(--white);
@@ -81,21 +80,27 @@ color: var(--dark);
   cursor: pointer;
 }
 
+/* Regras específicas para mobile */
 @media (max-width: 992px) {
-  .nav ul {
-    flex-direction: column;
-    background: var(--dark);
+  .nav {
     position: absolute;
     top: 100%;
     right: 0;
     width: 220px;
+    background: var(--dark);
+    flex-direction: column;
     border-left: 3px solid var(--red);
-    display: none;
+    display: none; /* inicialmente escondido */
     padding: 15px 0;
   }
 
-  .nav.active ul {
-    display: flex;
+  .nav.active {
+    display: flex; /* ativa quando o toggle é clicado */
+  }
+
+  .nav ul {
+    flex-direction: column;
+    width: 100%;
   }
 
   .nav ul li {
@@ -107,6 +112,40 @@ color: var(--dark);
     display: block;
   }
 }
+
+/* ======= HAMBURGER ICON ======= */
+.menu-toggle {
+  display: none; /* se estiver usando .mobile-nav-toggle, essa pode ser removida */
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 22px;
+  cursor: pointer;
+}
+
+.menu-toggle span {
+  display: block;
+  height: 3px;
+  width: 100%;
+  background: var(--white);
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+
+/* ======= ANIMAÇÃO HAMBURGER ======= */
+.nav.active + .menu-toggle span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.nav.active + .menu-toggle span:nth-child(2) {
+  opacity: 0;
+}
+
+.nav.active + .menu-toggle span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+
 /* Hero Slider */
 .hero-slider {
   position: relative;
@@ -670,7 +709,7 @@ color: var(--dark);
 
 /* Contact Section */
 .contact {
-  background: var(--white);
+  background: var(--gray);
   color: var(--dark);
   padding: 100px 20px;
 }
