@@ -102,7 +102,7 @@ color: var(--dark);
   transform: rotate(-45deg) translate(5px, -5px);
 }
 
-/* ======= NAV MOBILE - DROP DOWN ======= */
+/* ======= NAV MOBILE - DROP DOWN AJUSTADO ======= */
 @media (max-width: 992px) {
   .menu-toggle {
     display: flex;
@@ -111,38 +111,57 @@ color: var(--dark);
   .nav {
     position: absolute;
     top: 100%;
-    right: 0;
+    left: 0;
     width: 100%;
     background: var(--dark);
-    border-top: 3px solid var(--dark);
+    border-top: 3px solid var(--red);
     flex-direction: column;
     align-items: center;
     overflow: hidden;
     max-height: 0;
     opacity: 0;
     transition: all 0.5s ease;
+    padding: 0;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
   }
 
   .nav.active {
-    max-height: 300px; /* altura de expansão */
+    max-height: 400px; /* permite mais altura para vários links */
     opacity: 1;
-    padding: 10px 0;
+    padding: 15px 0 20px 0;
   }
 
   .nav ul {
     flex-direction: column;
-    width: 100%;
+    width: 90%;
+    max-width: 320px;
+    margin: 0 auto;
+    padding: 0;
   }
 
   .nav ul li {
-    margin: 10px 0;
-    text-align: center;
+    width: 100%;
+    margin: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .nav ul li:last-child {
+    border-bottom: none;
   }
 
   .nav ul li a {
     display: block;
     width: 100%;
-    padding: 10px 0;
+    text-align: center;
+    padding: 12px 0;
+    color: var(--white);
+    border-radius: 6px;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+
+  .nav ul li a:hover {
+    background: var(--red);
+    color: var(--white);
   }
 }
 
