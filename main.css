@@ -114,7 +114,7 @@ color: var(--dark);
     right: 0;
     width: 100%;
     background: var(--dark);
-    border-top: 3px solid var(--red);
+    border-top: 3px solid var(--dark);
     flex-direction: column;
     align-items: center;
     overflow: hidden;
