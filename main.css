@@ -70,169 +70,79 @@ color: var(--dark);
   color: var(--red);
 }
 
-/* ===== MENU MOBILE (ajuste visual completo) ===== */
+/* ======= MOBILE NAV ======= */
 .mobile-nav-toggle {
   display: none;
-  font-size: 2rem;
   color: var(--white);
+  font-size: 1.8rem;
   background: none;
   border: none;
   cursor: pointer;
-  z-index: 1001; /* fica acima do menu */
 }
 
-.nav {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-}
-
+/* Regras específicas para mobile */
 @media (max-width: 992px) {
-  .mobile-nav-toggle {
-    display: block;
-  }
-
   .nav {
-    position: fixed;
-    top: 0;
-    right: -100%; /* começa fora da tela */
-    height: 100vh;
-    width: 70%;
-    background-color: var(--dark);
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 220px;
+    background: var(--dark);
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    transition: right 0.3s ease-in-out;
     border-left: 3px solid var(--red);
-    z-index: 1000;
+    display: none; /* inicialmente escondido */
+    padding: 15px 0;
   }
 
   .nav.active {
-    right: 0; /* entra na tela */
+    display: flex; /* ativa quando o toggle é clicado */
   }
 
   .nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    text-align: center;
+    flex-direction: column;
     width: 100%;
   }
 
   .nav ul li {
-    margin: 20px 0;
+    margin: 12px 0;
+    text-align: center;
   }
 
-  .nav ul li a {
-    color: var(--white);
-    text-decoration: none;
-    font-size: 1.2rem;
-    font-weight: 500;
-    transition: color 0.3s;
-  }
-
-  .nav ul li a:hover {
-    color: var(--red);
-  }
+  
 }
 
-/* ===== ANIMAÇÃO DO ÍCONE HAMBURGER ===== */
-.mobile-nav-toggle span {
-  display: block;
-  width: 26px;
-  height: 3px;
-  background: var(--white);
-  margin: 5px auto;
-  transition: all 0.3s ease;
-  border-radius: 3px;
-}
-
-.mobile-nav-toggle.active span:nth-child(1) {
-  transform: rotate(45deg) translate(5px, 5px);
-}
-
-.mobile-nav-toggle.active span:nth-child(2) {
-  opacity: 0;
-}
-
-.mobile-nav-toggle.active span:nth-child(3) {
-  transform: rotate(-45deg) translate(5px, -5px);
-}
-
-
-/* === NAVBAR BASE === */
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #2d2d2d;
-  padding: 10px 20px;
-  position: relative;
-  z-index: 1000;
-}
-
-.logo img {
-  height: 40px;
-}
-
-/* === MENU NORMAL === */
-.nav-menu {
-  display: flex;
-  gap: 20px;
-}
-
-.nav-menu a {
-  color: #fff;
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.nav-menu a:hover {
-  color: #e4002b;
-}
-
-/* === HAMBURGER === */
-.hamburger {
-  display: none;
+/* ======= HAMBURGER ICON ======= */
+.menu-toggle {
+  display: none; /* se estiver usando .mobile-nav-toggle, essa pode ser removida */
   flex-direction: column;
-  gap: 5px;
-  background: none;
-  border: none;
+  justify-content: space-between;
+  width: 30px;
+  height: 22px;
   cursor: pointer;
 }
 
-.hamburger span {
-  width: 25px;
+.menu-toggle span {
+  display: block;
   height: 3px;
-  background: #fff;
-  border-radius: 2px;
+  width: 100%;
+  background: var(--white);
+  border-radius: 3px;
+  transition: all 0.3s ease;
 }
 
-/* === RESPONSIVO === */
-@media (max-width: 768px) {
-  .hamburger {
-    display: flex;
-  }
-
-  .nav-menu {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 100%;
-    height: 100vh;
-    background: rgba(45, 45, 45, 0.98);
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 30px;
-    transform: translateX(100%);
-    transition: transform 0.3s ease;
-  }
-
-  .nav-menu.active {
-    transform: translateX(0);
-  }
+/* ======= ANIMAÇÃO HAMBURGER ======= */
+.nav.active + .menu-toggle span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
 }
+
+.nav.active + .menu-toggle span:nth-child(2) {
+  opacity: 0;
+}
+
+.nav.active + .menu-toggle span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
 
 /* Hero Slider */
 .hero-slider {
