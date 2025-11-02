@@ -50,7 +50,7 @@
         <div class="hero-content">
           <h1>Monitoramento Inteligente e Segurança de TI</h1>
           <p>Visibilidade total da sua infraestrutura com Zabbix e Grafana.</p>
-          <a href="#contact" class="btn">Entre em Contato</a>
+          <a href="#contact" class="btn" hidden>Entre em Contato</a>
         </div>
       </article>
       <article class="slide" style="background-image: url('images/slide2.jpg');" aria-hidden="true">
@@ -72,9 +72,9 @@
       <button class="prev" aria-label="Slide anterior" hidden>&#10094;</button>
       <button class="next" aria-label="Próximo slide" hidden>&#10095;</button>
       <div class="dots" role="tablist">
-        <span class="dot active" role="tab" aria-selected="true" tabindex="0"></span>
-        <span class="dot" role="tab" aria-selected="false" tabindex="-1"></span>
-        <span class="dot" role="tab" aria-selected="false" tabindex="-1"></span>
+        <span class="dot active" role="tab" aria-selected="true" tabindex="0" hidden></span>
+        <span class="dot" role="tab" aria-selected="false" tabindex="-1" hidden></span>
+        <span class="dot" role="tab" aria-selected="false" tabindex="-1" hidden></span>
       </div>
     </section>
 
@@ -337,6 +337,32 @@
       </div>
     </section>
   </main>
+
+
+<!-- ======== SCRIPT MENU HAMBÚRGUER ======== -->
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const menuToggle = document.querySelector(".menu-toggle");
+    const nav = document.querySelector(".nav");
+
+    // Garante que ambos os elementos existam antes de aplicar eventos
+    if (menuToggle && nav) {
+      menuToggle.addEventListener("click", () => {
+        menuToggle.classList.toggle("active");
+        nav.classList.toggle("active");
+      });
+
+      // Fecha o menu ao clicar em um link (melhor UX)
+      nav.querySelectorAll("a").forEach(link => {
+        link.addEventListener("click", () => {
+          menuToggle.classList.remove("active");
+          nav.classList.remove("active");
+        });
+      });
+    }
+  });
+</script>
+
 
    <!-- ======= FOOTER ======= -->
 
