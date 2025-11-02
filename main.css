@@ -70,81 +70,94 @@ color: var(--dark);
   color: var(--red);
 }
 
-/* ======= MOBILE NAV ======= */
+/* ===== MENU MOBILE (ajuste visual completo) ===== */
 .mobile-nav-toggle {
   display: none;
+  font-size: 2rem;
   color: var(--white);
-  font-size: 1.8rem;
   background: none;
   border: none;
   cursor: pointer;
+  z-index: 1001; /* fica acima do menu */
 }
 
-/* Regras específicas para mobile */
+.nav {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
 @media (max-width: 992px) {
+  .mobile-nav-toggle {
+    display: block;
+  }
+
   .nav {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    width: 220px;
-    background: var(--dark);
+    position: fixed;
+    top: 0;
+    right: -100%; /* começa fora da tela */
+    height: 100vh;
+    width: 70%;
+    background-color: var(--dark);
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: right 0.3s ease-in-out;
     border-left: 3px solid var(--red);
-    display: none; /* inicialmente escondido */
-    padding: 15px 0;
+    z-index: 1000;
   }
 
   .nav.active {
-    display: flex; /* ativa quando o toggle é clicado */
+    right: 0; /* entra na tela */
   }
 
   .nav ul {
-    flex-direction: column;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
     width: 100%;
   }
 
   .nav ul li {
-    margin: 12px 0;
-    text-align: center;
+    margin: 20px 0;
   }
 
-  .mobile-nav-toggle {
-    display: block;
+  .nav ul li a {
+    color: var(--white);
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 500;
+    transition: color 0.3s;
+  }
+
+  .nav ul li a:hover {
+    color: var(--red);
   }
 }
 
-/* ======= HAMBURGER ICON ======= */
-.menu-toggle {
-  display: none; /* se estiver usando .mobile-nav-toggle, essa pode ser removida */
-  flex-direction: column;
-  justify-content: space-between;
-  width: 30px;
-  height: 22px;
-  cursor: pointer;
-}
-
-.menu-toggle span {
+/* ===== ANIMAÇÃO DO ÍCONE HAMBURGER ===== */
+.mobile-nav-toggle span {
   display: block;
+  width: 26px;
   height: 3px;
-  width: 100%;
   background: var(--white);
-  border-radius: 3px;
+  margin: 5px auto;
   transition: all 0.3s ease;
+  border-radius: 3px;
 }
 
-/* ======= ANIMAÇÃO HAMBURGER ======= */
-.nav.active + .menu-toggle span:nth-child(1) {
+.mobile-nav-toggle.active span:nth-child(1) {
   transform: rotate(45deg) translate(5px, 5px);
 }
 
-.nav.active + .menu-toggle span:nth-child(2) {
+.mobile-nav-toggle.active span:nth-child(2) {
   opacity: 0;
 }
 
-.nav.active + .menu-toggle span:nth-child(3) {
+.mobile-nav-toggle.active span:nth-child(3) {
   transform: rotate(-45deg) translate(5px, -5px);
 }
-
 
 /* Hero Slider */
 .hero-slider {

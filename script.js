@@ -1,7 +1,7 @@
-// Alternar menu mobile
-const toggleBtn = document.querySelector('.menu-toggle');
-const navMenu = document.querySelector('.navmenu');
+const toggle = document.querySelector('.mobile-nav-toggle');
+const nav = document.querySelector('.nav');
 
-toggleBtn.addEventListener('click', () => {
-  navMenu.classList.toggle('active');
+toggle.addEventListener('click', () => {
+  nav.classList.toggle('active');
+  toggle.classList.toggle('active');
 });
