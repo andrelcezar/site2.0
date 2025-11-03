@@ -70,28 +70,29 @@ color: var(--dark);
   color: var(--red);
 }
 
-/* ==============================
-   MENU MOBILE (DROP-DOWN)
-   ============================== */
+/* ======= MENU HAMBÚRGUER AJUSTADO ======= */
 .menu-toggle {
   display: none;
   flex-direction: column;
   justify-content: space-between;
-  width: 30px;
-  height: 22px;
+  width: 32px;
+  height: 24px;
   cursor: pointer;
+  z-index: 1100; /* garante que fique acima do menu */
+  background: none;
+  border: none;
 }
 
 .menu-toggle span {
   display: block;
-  height: 3px;
   width: 100%;
-  background: var(--white);
-  border-radius: 3px;
-  transition: all 0.4s ease;
+  height: 3px;
+  background-color: var(--white); /* branco — altere para var(--red) se quiser vermelho */
+  border-radius: 2px;
+  transition: all 0.3s ease;
 }
 
-/* Animação do ícone hamburguer */
+/* Animação de transformação do ícone ao clicar */
 .menu-toggle.active span:nth-child(1) {
   transform: rotate(45deg) translate(5px, 5px);
 }
