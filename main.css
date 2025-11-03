@@ -22,6 +22,30 @@ h2 {
 color: var(--dark);
 
 }
+
+
+/* ======= Scroll suave e alinhamento de seções ======= */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px; /* espaço igual à altura do header */
+}
+
+@media (max-width: 992px) {
+  html {
+    scroll-padding-top: 70px; /* ajuste menor no mobile */
+  }
+}
+
+/* Destaque da seção ativa no menu */
+.nav ul li a.active {
+  color: var(--red);
+  border-bottom: 2px solid var(--red);
+  transition: all 0.3s ease;
+}
+
+
+
+
 /* ======= HEADER E MENU ======= */
 .header {
   background-color: var(--dark);

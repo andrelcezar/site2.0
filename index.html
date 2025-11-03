@@ -15,6 +15,9 @@
 <body>
 
 
+
+  
+
   <!-- ======= HEADER ======= -->
 
   
@@ -32,11 +35,12 @@
 
 
 
-
-    <!-- BOTÃO MENU HAMBÚRGUER -->
-    <button class="menu-toggle" aria-label="Abrir menu">
-      <span></span><span></span><span></span>
-    </button>
+<!-- BOTÃO MENU HAMBÚRGUER -->
+<button class="menu-toggle" aria-label="Abrir menu">
+  <span></span>
+  <span></span>
+  <span></span>
+</button>
 
     <!-- ======== MENU ========= -->
     <nav class="nav">
@@ -334,7 +338,7 @@
             <h3>Informações de Contato</h3>
             <ul>
               <li><i class="fa-regular fa-envelope"></i> <a href="mailto:contato@glctech.com.br">contato@glctech.com.br</a></li>
-              <li><i class="fa-brands fa-whatsapp"></i> +55 11 91151-7501</li>
+              <li><i class="fa-brands fa-whatsapp"></i> +55 11 99999-9999</li>
               <li><i class="fa-regular fa-map"></i></i> São Paulo, SP - Brasil</li>
             </ul>
             <div class="socials" role="list">
@@ -382,4 +386,42 @@
     </div>
   </footer>
 </body>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const sections = document.querySelectorAll("section[id]");
+  const navLinks = document.querySelectorAll(".nav ul li a");
+
+  // Função para atualizar o menu conforme o scroll
+  function activateMenuOnScroll() {
+    let scrollY = window.pageYOffset;
+
+    sections.forEach((section) => {
+      const sectionTop = section.offsetTop - 100;
+      const sectionHeight = section.offsetHeight;
+      const sectionId = section.getAttribute("id");
+
+      if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+        navLinks.forEach((link) => {
+          link.classList.remove("active");
+          if (link.getAttribute("href").includes(sectionId)) {
+            link.classList.add("active");
+          }
+        });
+      }
+    });
+  }
+
+  // Detecta rolagem
+  window.addEventListener("scroll", activateMenuOnScroll);
+
+  // Fechar menu ao clicar em link (já existe, mas garantimos compatibilidade)
+  navLinks.forEach(link => {
+    link.addEventListener("click", () => {
+      document.querySelector(".menu-toggle").classList.remove("active");
+      document.querySelector(".nav").classList.remove("active");
+    });
+  });
+});
+</script>
 </html>
