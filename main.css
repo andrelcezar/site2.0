@@ -1,3 +1,24 @@
+/* ===============================================
+   GLCTech - Estilos Principais do Site
+   Autor: André Luiz Cézar
+   Última Revisão: 04/11/2025
+   Descrição: Este arquivo contém toda a estilização base do site GLCTech,
+   incluindo estrutura, layout, responsividade e identidade visual.
+
+   Estrutura de Seções:
+   - Variáveis e Reset
+   - Cabeçalho e Menu (Header / Nav)
+   - Seção Hero (Slider de destaque)
+   - Seção Sobre (About)
+   - Seção Serviços (Services)
+   - Seção Parceiros (Partners)
+   - Seção Equipe (Team)
+   - Seção Depoimentos (Testimonials)
+   - Seção Contato (Contact)
+   - Rodapé (Footer)
+   - Responsividade (Media Queries)
+=============================================== */
+
 :root {
   --dark: #2d2d2d;
   --red: #e6262c;
@@ -858,13 +879,91 @@ html {
   outline: none;
 }
 
-/* Footer */
+/* ====== FOOTER ====== */
 .footer {
-  background-color: #1a1a1a;
-  padding: 1.5rem 0;
-  text-align: center;
+  background: var(--dark);
+  color: var(--white);
+  font-size: 14px;
+  padding: 40px 0 20px;
+  border-top: 1px solid #eee;
+}
+
+.footer h4 {
+  font-size: 16px;
+  font-weight: 700;
   color: var(--gray);
-  font-size: 0.9rem;
+  margin-bottom: 15px;
+}
+
+.footer a {
+  color: var(--gray);
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.footer a:hover {
+  color: #E4002B;
+  text-decoration: underline;
+}
+
+.footer .footer-top {
+  margin-bottom: 20px;
+}
+
+.footer .footer-links ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer .footer-links ul li {
+  padding: 5px 0;
+  display: flex;
+  align-items: center;
+}
+
+.footer .footer-links i {
+  color: #E4002B;
+  margin-right: 8px;
+  font-size: 12px;
+}
+
+.footer .social-links a {
+  display: inline-block;
+  background: var(--dark);
+  color: var(--gray);
+  font-size: 18px;
+  margin-right: 10px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  transition: 0.3s;
+}
+
+.footer .social-links a:hover {
+  background: var(--dark);
+  color: #fff;
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+  font-size: 13px;
+  color: #666;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .footer .row {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+  .footer .footer-links ul li {
+    justify-content: center;
+  }
+  .footer .social-links {
+    justify-content: center;
+  }
 }
 
 /* Responsive */
@@ -945,4 +1044,199 @@ html {
   .btn {
     padding: 0.6rem 1rem;
   }
+
+  /* ======= ESTILO PARA A SEÇÃO VEEAM ======= */
+#veeam {
+  text-align: center;        /* Centraliza todo o conteúdo */
+  margin-top: 120px;         /* Espaço entre o menu e o texto */
+  padding: 60px 20px;        /* Respiro interno da seção */
+}
+
+#veeam h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;       /* Espaço entre título e parágrafo */
+  color: #E4002B;            /* Mantém o padrão de destaque GLCTech */
+}
+
+#veeam p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #ddd;               /* Mantém contraste em fundo escuro */
+  max-width: 700px;          /* Limita largura do texto */
+  margin: 0 auto;            /* Centraliza horizontalmente */
+}
+
+
+/* ======= AJUSTE GERAL DO MAIN ======= */
+main.main {
+  padding-top: 120px; /* Espaço entre o menu fixo e o conteúdo */
+}
+
+/* ======= SEÇÃO KASPERSKY (ATUALIZADA) ======= */
+#kaspersky {
+  background-color: var(--white);
+  color: var(--dark);
+  padding: 80px 20px;
+}
+
+#kaspersky h2 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 15px;
+  position: relative;
+}
+
+#kaspersky h2::after {
+  content: "";
+  width: 80px;
+  height: 4px;
+  background: var(--red);
+  display: block;
+  margin: 12px auto 0;
+  border-radius: 2px;
+}
+
+#kaspersky p {
+  color: #444;
+  line-height: 1.7;
+}
+
+#kaspersky .fw-semibold {
+  color: var(--dark);
+}
+
+#kaspersky ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+#kaspersky ul li {
+  margin-bottom: 8px;
+  font-size: 1rem;
+  color: #333;
+}
+
+#kaspersky ul li::before {
+  content: "✔ ";
+  color: var(--red);
+  font-weight: bold;
+  margin-right: 4px;
+}
+
+#kaspersky .btn {
+  font-weight: 600;
+  border-radius: 6px;
+  padding: 10px 22px;
+  transition: all 0.3s ease;
+}
+
+#kaspersky .btn-danger {
+  background-color: var(--red);
+  border: none;
+  color: var(--white);
+}
+
+#kaspersky .btn-danger:hover {
+  background-color: transparent;
+  color: var(--red);
+  border: 2px solid var(--red);
+}
+
+#kaspersky .btn-outline-dark {
+  border: 2px solid var(--dark);
+  color: var(--dark);
+}
+
+#kaspersky .btn-outline-dark:hover {
+  background-color: var(--red);
+  border-color: var(--red);
+  color: var(--white);
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  #kaspersky {
+    text-align: center;
+    padding: 60px 15px;
+  }
+
+  #kaspersky img {
+    margin: 0 auto 15px;
+  }
+
+  #kaspersky .mt-4 {
+    justify-content: center;
+  }
+}
+
+/* ==============================
+   Seção: Por que escolher a GLCTech
+   ============================== */
+.why-section {
+  background-color: #f8f9fc;
+  color: var(--dark);
+}
+
+.why-section .label {
+  display: inline-block;
+  background-color: var(--red);
+  color: transparent;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 20px;
+  letter-spacing: 1px;
+}
+
+.why-section .section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--dark);
+}
+
+.why-section .section-title span {
+  color: var(--red);
+}
+
+.why-section p {
+  color: var(--dark);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.why-section .why-item .icon {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background-color: transparent;
+  color: var(--dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+.why-section img {
+  border-radius: 24px;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+@media (max-width: 992px) {
+  .why-section .section-title {
+    text-align: center;
+  }
+  .why-section .label {
+    display: block;
+    margin: 0 auto 10px;
+    text-align: center;
+  }
+  .why-section p {
+    text-align: center;
+  }
+}
+
 }
