@@ -12,6 +12,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script defer src="./scripts/script.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  
 </head>
 <body>
 
@@ -51,7 +53,7 @@
         <li><a href="#about">Sobre</a></li>
         <li><a href="#team" hidden>Nosso Time</a></li>
         <li><a href="#services">Serviços</a></li>
-        <li><a href="https://ty0ci.share.hsforms.com/2dDZ5-CdFTKektziqcbgsTQ" target="_blank">Trabalhe Conosco</a></li>
+        <li><a href="https://ty0ci.share.hsforms.com/2dDZ5-CdFTKektziqcbgsTQ" target="_blank" hidden>Trabalhe Conosco</a></li>
         <li><a href="#contact">Contato</a></li>
       </ul>
     </nav>
@@ -215,15 +217,14 @@ Com expertise comprovada, suporte dedicado, soluções sob medida e inovação c
           <p class="team-role">CEO & Fundador</p>
           <p class="team-bio">Especialista em infraestrutura e monitoramento de TI com foco em soluções corporativas baseadas em Zabbix, Grafana e automação.</p>
           <div class="team-social mt-3">
-            <!-- <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-            <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
-            <a href="#" aria-label="Email"><i class="fas fa-envelope"></i></a>-->
+            <a href="https://www.linkedin.com/in/andrelcezar/" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="mailto:andre.cezar@glctech.com.br" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
           </div>
         </div>
       </div>
 
       <!-- Card 2 -->
-      <div class="col-md-4 col-sm-6">
+      <div class="col-md-4 col-sm-6" hidden>
         <div class="team-card text-center p-4 h-100">
           <div class="team-img mb-3">
             <img src="./assets/team/kawan.png" alt="Juliana Silva" class="img-fluid rounded-circle">
@@ -231,24 +232,26 @@ Com expertise comprovada, suporte dedicado, soluções sob medida e inovação c
           <h5 class="team-name">Kawan Pablo</h5>
           <p class="team-role">Gerente de TI</p>
           <p class="team-bio">Responsável por coordenar projetos de infraestrutura na AWS, assegurando a qualidade de entrega das soluções em nuvem e cultivando o relacionamento estratégico com clientes corporativos.</p>
-          <div class="team-social mt-3">
-             <!-- <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-            <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
-            -->
-          </div>
+          
         </div>
       </div>
 
       <!-- Card 3 -->
-      <div class="col-md-4 col-sm-6">
+       <div class="col-md-4 col-sm-6">
         <div class="team-card text-center p-4 h-100">
           <div class="team-img mb-3">
-            <img src="./assets/team/team-3.jpg" alt="Roberto Lima" class="img-fluid rounded-circle">
+            <img src="./assets/team/kawan.png" alt="Juliana Silva" class="img-fluid rounded-circle">
           </div>
-          <h5 class="team-name">Roberto Lima</h5>
-          <p class="team-role">CTO — Tecnologia & Inovação</p>
-          <p class="team-bio">Especialista em segurança de redes, infraestrutura em nuvem e integração com soluções de backup e proteção de dados.</p>
+          <h5 class="team-name">Kawan Pablo</h5>
+          <p class="team-role">CTO</p>
+          <p class="team-bio">Responsável por coordenar projetos de infraestrutura na AWS, assegurando a qualidade de entrega das soluções em nuvem e cultivando o relacionamento estratégico com clientes corporativos.</p>
           <div class="team-social mt-3">
+             <a href="https://www.linkedin.com/in/kawan-pablo-a381b5292/" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="mailto:kawan.pablo@glctech.com.br" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+            
+          </div>
+        </div>
+      </div>
            <!-- <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
             <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
             -->
@@ -426,6 +429,71 @@ Com expertise comprovada, suporte dedicado, soluções sob medida e inovação c
   </div>
 </section>
 
+<!-- ========= BLOG =========== -->
+
+<section id="blog" class="blog-section" aria-labelledby="blog-title" hidden>
+  <div class="container">
+    <h2 id="blog-title" class="section-title">Últimas Novidades</h2>
+    <p class="section-subtitle">
+      Confira artigos, tutoriais e insights sobre monitoramento, segurança e infraestrutura de TI.
+    </p>
+
+    <div class="row g-4" id="rss-blog-posts">
+
+      <div class="col-lg-4 col-md-6">
+        <article class="blog-post-card h-100">
+          <div class="card-body">
+            <span class="post-date">01 de Janeiro, 2025</span>
+            <h5 class="card-title">Título de Exemplo do Post do Blog</h5>
+            <p class="card-text">
+              Este é um resumo da postagem. O script de leitura do RSS Feed irá preencher este conteúdo dinamicamente com os últimos posts do seu blog.
+            </p>
+            <a href="URL_DO_POST_AQUI" class="read-more" target="_blank">
+              Leia Mais <i class="fa-solid fa-arrow-right-long"></i>
+            </a>
+          </div>
+        </article>
+      </div>
+
+      <div class="col-lg-4 col-md-6">
+        <article class="blog-post-card h-100">
+          <div class="card-body">
+            <span class="post-date">15 de Dezembro, 2024</span>
+            <h5 class="card-title">Como Implementar Monitoramento Zabbix Eficiente</h5>
+            <p class="card-text">
+              Descubra os passos essenciais e as melhores práticas para uma implementação de sucesso, garantindo visibilidade total da sua infraestrutura.
+            </p>
+            <a href="#" class="read-more" target="_blank">
+              Leia Mais <i class="fa-solid fa-arrow-right-long"></i>
+            </a>
+          </div>
+        </article>
+      </div>
+
+      <div class="col-lg-4 col-md-6">
+        <article class="blog-post-card h-100">
+          <div class="card-body">
+            <span class="post-date">28 de Novembro, 2024</span>
+            <h5 class="card-title">As Novidades em Segurança Cibernética para 2025</h5>
+            <p class="card-text">
+              Preparamos um resumo das principais tendências e desafios que as empresas enfrentarão no próximo ano e como se proteger.
+            </p>
+            <a href="#" class="read-more" target="_blank">
+              Leia Mais <i class="fa-solid fa-arrow-right-long"></i>
+            </a>
+          </div>
+        </article>
+      </div>
+    </div>
+    <div class="text-center mt-5">
+      <a href="URL_DO_SEU_BLOG_COMPLETO" class="btn btn-danger px-4 py-2" target="_blank" style="background-color: var(--red); color: var(--white);">
+        Ver Todos os Posts <i class="fa-solid fa-book-open-reader ms-2"></i>
+      </a>
+    </div>
+
+  </div>
+</section>
+
      <!-- ======= CONTACT ======= -->
 
     <section id="contact" class="contact" aria-labelledby="contact-title">
@@ -500,6 +568,7 @@ Com expertise comprovada, suporte dedicado, soluções sob medida e inovação c
           <li><i class="bi bi-chevron-right"></i> <a href="#home">Home</a></li>
           <li><i class="bi bi-chevron-right"></i> <a href="#about">Sobre</a></li>
           <li><i class="bi bi-chevron-right"></i> <a href="#services">Serviços</a></li>
+          <li><i class="bi bi-chevron-right"></i> <a href="https://ty0ci.share.hsforms.com/2dDZ5-CdFTKektziqcbgsTQ" target="_blank">Trabalhe Conosco</a></li>
           <li><i class="bi bi-chevron-right"></i> <a href="politica.html" target="_blank">Política de Privacidade</a></li>
           <li><i class="bi bi-chevron-right"></i> <a href="termos.html" target="_blank">Termos de Uso</a></li>
         </ul>
@@ -528,6 +597,12 @@ Com expertise comprovada, suporte dedicado, soluções sob medida e inovação c
     <p>© 2015 Copyright <strong>GLCTech Tecnologia</strong> All Rights Reserved</p>
   </div>
 </footer>
+
+
+
+<!-- Start of HubSpot Embed Code -->
+<script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/50295618.js"></script>
+<!-- End of HubSpot Embed Code -->
 </body>
 
 <script>
@@ -569,11 +644,7 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
 </html>
 
- <!-- Start of HubSpot Embed Code -->
-  <script type="text/javascript" id="hs-script-loader" async defer src="//js-na1.hs-scripts.com/50295618.js"></script>
-<!-- End of HubSpot Embed Code -->
-
-
+ 
 <!-- ======== TIDIO CHAT ====== -->
  <script src="//code.tidio.co/z471nxc3tjaciumkzzasuoe928m5odks.js" async></script>
 
