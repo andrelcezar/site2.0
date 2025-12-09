@@ -405,6 +405,116 @@ With proven expertise, dedicated support, tailor-made solutions, and constant in
   </div>
 </section>
 
+
+<!-- ========== ORÇAMENTO ======-->
+
+<section id="calculator" class="py-5" style="background-color: #f8f9fa;">
+  <div class="container">
+    <h2 class="section-title text-center">Simulate Your Company's IT Investment</h2>
+    <div class="mx-auto mb-4" style="width: 80px; height: 3px; background-color: #E4002B;"></div>
+    <p class="section-subtitle text-center mb-5">
+      Get a quick estimate for Zabbix Monitoring, and Kaspersky and Veeam Licensing.
+    </p>
+
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <div class="card p-4 shadow-lg border-0 rounded-3">
+          <form id="serviceCalculatorForm">
+            <div class="row g-4 mb-4">
+              <div class="col-md-6">
+                <div class="card h-100 p-3 bg-light border-danger border-2">
+                  <label for="serviceType" class="form-label fw-bold"><i class="fas fa-desktop me-2"></i> 1. Which service do you need?</label>
+                  <select class="form-select" id="serviceType" required>
+                    <option value="">-- Select an option --</option>
+                    <option value="zabbix">Zabbix Monitoring</option>
+                    <option value="kaspersky">Kaspersky Security (License)</option>
+                    <option value="veeam">Veeam Backup (License)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-md-6" id="environmentFieldContainer" style="display: none;">
+                <div class="card h-100 p-3 bg-light border-danger border-2">
+                  <label for="environmentType" class="form-label fw-bold"><i class="fas fa-cloud me-2"></i> 2. What is the environment?</label>
+                  <select class="form-select" id="environmentType" required>
+                    <option value="">-- Select the environment --</option>
+                    <option value="onpremises">On-premises (Local)</option>
+                    <option value="cloud">Cloud (AWS, Azure, GCP)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            
+            <div id="zabbixFieldsContainer" style="display: none;">
+
+                <div id="zabbixOnPremFields" style="display: none;" class="row g-3 mb-4 p-3 border rounded">
+                    <label class="form-label fw-bold text-danger"><i class="fas fa-server me-2"></i> 3. Asset Detail (On-premises)</label>
+                    <div class="col-md-3">
+                        <label for="qtdServersOnPrem" class="form-label">Servers (OS/VMs)</label>
+                        <input type="number" class="form-control" id="qtdServersOnPrem" min="0" value="0">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="qtdRouters" class="form-label">Routers/Switches</label>
+                        <input type="number" class="form-control" id="qtdRouters" min="0" value="0">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="qtdServices" class="form-label">Services/Applications (DB/Web)</label>
+                        <input type="number" class="form-control" id="qtdServices" min="0" value="0">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="qtdLinks" class="form-label">Internet Links</label>
+                        <input type="number" class="form-control" id="qtdLinks" min="0" value="0">
+                    </div>
+                    <div class="col-md-12 mt-3">
+                      <small class="text-muted">Enter 0 if the item does not apply. The total number of monitored items must be greater than zero.</small>
+                    </div>
+                </div>
+
+                <div id="zabbixCloudFields" style="display: none;" class="row g-3 mb-4 p-3 border rounded">
+                    <label class="form-label fw-bold text-danger"><i class="fas fa-cloud me-2"></i> 3. Asset Detail (Cloud)</label>
+                    <div class="col-md-6">
+                        <label for="qtdServersCloud" class="form-label">Servers/Instances (EC2, VMs, etc.)</label>
+                        <input type="number" class="form-control" id="qtdServersCloud" min="0" value="0">
+                    </div>
+                    <div class="col-md-12 mt-3">
+                      <small class="text-muted">Cloud monitoring includes instances and may incur API costs. Enter the quantity of critical resources.</small>
+                    </div>
+                </div>
+            </div>
+
+            <div id="licenseFields" style="display: none;">
+                <div class="mb-4">
+                  <label for="qtdLicenses" class="form-label fw-bold"><i class="fas fa-key me-2"></i> 3. Number of Licenses</label>
+                  <input type="number" class="form-control" id="qtdLicenses" min="1" value="1">
+                </div>
+            </div>
+
+            <div class="mb-4" id="licensePeriodContainer" style="display: none;">
+              <label for="licensePeriod" class="form-label fw-bold"><i class="fas fa-calendar-alt me-2"></i> 4. Licensing Period (in months)</label>
+              <input type="number" class="form-control" id="licensePeriod" min="1" value="12">
+            </div>
+
+            <div class="d-grid mb-4">
+              <button type="submit" class="btn btn-danger btn-lg"><i class="fas fa-calculator me-2"></i> Calculate Estimate</button>
+            </div>
+          </form>
+
+          <div id="calculationResult" class="mt-4 p-4 rounded text-center border-danger border-3" style="display: none; background-color: #fff3f3;">
+            <h4 class="text-dark fw-bold">Your Estimated Investment:</h4>
+            <p class="h1 text-danger fw-bolder" id="estimatedValue">$ 0.00</p>
+            <p class="small text-muted mt-3" id="resultNote">
+              * This value is an **initial estimate**. For an official and detailed quote, please contact us.
+            </p>
+            <a href="#contact" class="btn btn-outline-danger btn-sm mt-2"><i class="fas fa-paper-plane me-2"></i> Request Official Quote</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======= CONTACT =========-->
+
      <section id="contact" class="contact" aria-labelledby="contact-title">
       <div class="container">
         <h2 id="contact-title" class="section-title">Contact Us</h2>
@@ -431,6 +541,201 @@ With proven expertise, dedicated support, tailor-made solutions, and constant in
       </div>
     </section>
   </main>
+
+<!-- ======= SCRIPT ORÇAMENTO ==========-->
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('serviceCalculatorForm');
+    const resultDiv = document.getElementById('calculationResult');
+    const estimatedValueEl = document.getElementById('estimatedValue');
+    const serviceTypeSelect = document.getElementById('serviceType');
+    const environmentFieldContainer = document.getElementById('environmentFieldContainer');
+    const environmentTypeSelect = document.getElementById('environmentType');
+    const resultNoteEl = document.getElementById('resultNote');
+
+    // Conditional Zabbix Elements
+    const zabbixFieldsContainer = document.getElementById('zabbixFieldsContainer');
+    const zabbixOnPremFields = document.getElementById('zabbixOnPremFields');
+    const qtdServersOnPrem = document.getElementById('qtdServersOnPrem');
+    const qtdRouters = document.getElementById('qtdRouters');
+    const qtdServices = document.getElementById('qtdServices');
+    const qtdLinks = document.getElementById('qtdLinks');
+    const zabbixCloudFields = document.getElementById('zabbixCloudFields');
+    const qtdServersCloud = document.getElementById('qtdServersCloud');
+
+    // Conditional License Elements
+    const licenseFields = document.getElementById('licenseFields');
+    const qtdLicenses = document.getElementById('qtdLicenses');
+    const licensePeriodContainer = document.getElementById('licensePeriodContainer');
+    const licensePeriodInput = document.getElementById('licensePeriod');
+
+    // Functions for visibility management
+    function resetZabbixFields() {
+      zabbixFieldsContainer.style.display = 'none';
+      zabbixOnPremFields.style.display = 'none';
+      zabbixCloudFields.style.display = 'none';
+      environmentFieldContainer.style.display = 'none';
+      environmentTypeSelect.required = false;
+      environmentTypeSelect.value = ''; // Clears environment selection
+    }
+
+    function resetLicenseFields() {
+      licenseFields.style.display = 'none';
+      licensePeriodContainer.style.display = 'none';
+      qtdLicenses.required = false;
+      licensePeriodInput.required = false;
+    }
+
+    // Main Listener (Service Type)
+    serviceTypeSelect.addEventListener('change', () => {
+      const selectedService = serviceTypeSelect.value;
+      
+      resetZabbixFields();
+      resetLicenseFields();
+
+      if (selectedService === 'zabbix') {
+        environmentFieldContainer.style.display = 'block';
+        environmentTypeSelect.required = true;
+        zabbixFieldsContainer.style.display = 'block';
+      } else if (selectedService === 'kaspersky' || selectedService === 'veeam') {
+        licenseFields.style.display = 'block';
+        licensePeriodContainer.style.display = 'block';
+        qtdLicenses.required = true;
+        licensePeriodInput.required = true;
+      }
+      resultDiv.style.display = 'none'; // Hides result when changing service
+    });
+
+    // Environment Listener (Shows specific Zabbix fields)
+    environmentTypeSelect.addEventListener('change', () => {
+        const environmentType = environmentTypeSelect.value;
+        zabbixOnPremFields.style.display = 'none';
+        zabbixCloudFields.style.display = 'none';
+        resultDiv.style.display = 'none';
+
+        if (environmentType === 'onpremises') {
+            zabbixOnPremFields.style.display = 'flex';
+        } else if (environmentType === 'cloud') {
+            zabbixCloudFields.style.display = 'flex';
+        }
+    });
+
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const serviceType = serviceTypeSelect.value;
+      const environmentType = environmentTypeSelect.value;
+      let totalCost = 0;
+      let totalItems = 0;
+      let monthlySupportCost = 0;
+
+      // =========================================================================
+      // --- ⚠️ PRICE DEFINITIONS (ADJUST ACCORDING TO GLCTECH'S OFFICIAL VALUES) ---
+      // --- NOTE: NUMERIC VALUES MUST BE ADJUSTED FOR THE USD MARKET! ---
+      // =========================================================================
+      
+      // ZABBIX (Services and Implementation) - MONTHLY COSTS PER ITEM
+      const COST_SERVER_ONPREM = 200;       
+      const COST_ROUTER_SWITCH = 100;       
+      const COST_SERVICE = 150;             
+      const COST_LINK = 80;                 
+      const COST_SERVER_CLOUD = 250;        
+      const COST_IMPLEMENTATION_ONPREM = 4000; 
+      const COST_IMPLEMENTATION_CLOUD = 5000;  
+
+      // LICENSES
+      const COST_KASPERSKY_PER_ITEM_YEAR = 130.00; 
+      const COST_VEEAM_PER_ITEM_MONTH = 100.00;     
+
+      // =========================================================================
+      
+      if (serviceType === 'zabbix') {
+        let implementationCost = 0;
+        
+        if (!environmentType) {
+             alert("Please select the environment (Cloud or On-premises).");
+             return;
+        }
+
+        if (environmentType === 'onpremises') {
+            const servers = parseInt(qtdServersOnPrem.value) || 0;
+            const routers = parseInt(qtdRouters.value) || 0;
+            const services = parseInt(qtdServices.value) || 0;
+            const links = parseInt(qtdLinks.value) || 0;
+
+            totalItems = servers + routers + services + links;
+            implementationCost = COST_IMPLEMENTATION_ONPREM;
+
+            monthlySupportCost = 
+              (servers * COST_SERVER_ONPREM) + 
+              (routers * COST_ROUTER_SWITCH) + 
+              (services * COST_SERVICE) +
+              (links * COST_LINK);
+
+        } else if (environmentType === 'cloud') {
+            const servers = parseInt(qtdServersCloud.value) || 0;
+            
+            totalItems = servers;
+            implementationCost = COST_IMPLEMENTATION_CLOUD;
+
+            monthlySupportCost = servers * COST_SERVER_CLOUD;
+        }
+
+        if (totalItems === 0) {
+           alert("Please enter the number of items to be monitored.");
+           return;
+        }
+        
+        // Total Cost: Implementation + 1 Month of Support
+        totalCost = implementationCost + monthlySupportCost;
+        
+        resultNoteEl.innerHTML = `* This value is an **implementation estimate + 1 month of service**. The estimated recurring monthly cost is ${ monthlySupportCost.toLocaleString('en-US', { style: 'currency', currency: 'USD' }) }.`;
+
+      } else if (serviceType === 'kaspersky') {
+        totalItems = parseInt(qtdLicenses.value) || 0;
+        const period = parseInt(licensePeriodInput.value) || 12;
+
+        if (totalItems === 0 || period === 0) {
+           alert("Please enter the number of licenses and the period.");
+           return;
+        }
+
+        // Total Cost: Lic. Quantity * Annual Cost * (Months / 12)
+        totalCost = (totalItems * COST_KASPERSKY_PER_ITEM_YEAR) * (period / 12);
+        resultNoteEl.innerHTML = `* This value is the **total licensing cost** for ${totalItems} licenses over ${period} months.`;
+
+      } else if (serviceType === 'veeam') {
+        totalItems = parseInt(qtdLicenses.value) || 0;
+        const period = parseInt(licensePeriodInput.value) || 12;
+        
+        if (totalItems === 0 || period === 0) {
+           alert("Please enter the number of licenses and the period.");
+           return;
+        }
+
+        // Total Cost: Lic. Quantity * Monthly Cost * Months
+        totalCost = totalItems * COST_VEEAM_PER_ITEM_MONTH * period;
+        resultNoteEl.innerHTML = `* This value is the **total licensing cost** for ${totalItems} licenses over ${period} months.`;
+      } else {
+        estimatedValueEl.textContent = 'Select a Valid Service';
+        resultDiv.style.display = 'block';
+        return;
+      }
+      
+      // Formatting the final result in USD
+      estimatedValueEl.textContent = totalCost.toLocaleString('en-US', {
+        style: 'currency',
+        currency: 'USD'
+      });
+
+      resultDiv.style.display = 'block';
+    });
+  });
+</script>
+
+<!-- ======== FIM SCRIPT ORÇAMENTO ========-->
 
 
 <script>
@@ -473,7 +778,7 @@ With proven expertise, dedicated support, tailor-made solutions, and constant in
           <li><i class="bi bi-chevron-right"></i> <a href="#home">Home</a></li>
           <li><i class="bi bi-chevron-right"></i> <a href="#about">About</a></li>
           <li><i class="bi bi-chevron-right"></i> <a href="#services">Services</a></li>
-          <li><i class="bi bi-chevron-right"></i> <a href="https://ty0ci.share.hsforms.com/2dDZ5-CdFTKektziqcbgsTQ" target="_blank">Work With Us</a></li>
+          <li><i class="bi bi-chevron-right"></i> <a href="https://ty0ci.share.hsforms.com/2bA7FlfgFRDqxpiOUaFDhhw" target="_blank">Work With Us</a></li>
           <li><i class="bi bi-chevron-right"></i> <a href="politica_eng.html" target="_blank">Privacy Policy</a></li>
           <li><i class="bi bi-chevron-right"></i> <a href="termos_eng.html" target="_blank">Terms of Use</a></li>
         </ul>
