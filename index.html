@@ -532,6 +532,7 @@ Com expertise comprovada, suporte dedicado, soluções sob medida e inovação c
                 <div class="card h-100 p-3 bg-light border-danger border-2">
                   <label for="environmentType" class="form-label fw-bold"><i class="fas fa-cloud me-2"></i> 2. Qual o ambiente?</label>
                   <select class="form-select" id="environmentType" required>
+                    <option value="">-- Selecione o ambiente --</option>
                     <option value="onpremises">On-premises (Local)</option>
                     <option value="cloud">Cloud (AWS, Azure, GCP)</option>
                   </select>
@@ -539,22 +540,40 @@ Com expertise comprovada, suporte dedicado, soluções sob medida e inovação c
               </div>
             </div>
             
-            <div id="zabbixFields" style="display: none;" class="row g-3 mb-4">
-                <label class="form-label fw-bold"><i class="fas fa-server me-2"></i> 3. Quantidade de Itens (Zabbix)</label>
-                <div class="col-md-4">
-                    <label for="qtdServers" class="form-label">Servidores (OS)</label>
-                    <input type="number" class="form-control" id="qtdServers" min="0" value="0">
+            <div id="zabbixFieldsContainer" style="display: none;">
+
+                <div id="zabbixOnPremFields" style="display: none;" class="row g-3 mb-4 p-3 border rounded">
+                    <label class="form-label fw-bold text-danger"><i class="fas fa-server me-2"></i> 3. Detalhamento de Ativos (On-premises)</label>
+                    <div class="col-md-3">
+                        <label for="qtdServersOnPrem" class="form-label">Servidores (OS/VMs)</label>
+                        <input type="number" class="form-control" id="qtdServersOnPrem" min="0" value="0">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="qtdRouters" class="form-label">Roteadores/Switches</label>
+                        <input type="number" class="form-control" id="qtdRouters" min="0" value="0">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="qtdServices" class="form-label">Serviços/Aplicações (DB/Web)</label>
+                        <input type="number" class="form-control" id="qtdServices" min="0" value="0">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="qtdLinks" class="form-label">Links de Internet</label>
+                        <input type="number" class="form-control" id="qtdLinks" min="0" value="0">
+                    </div>
+                    <div class="col-md-12 mt-3">
+                      <small class="text-muted">Informe 0 se o item não se aplica. O total de itens monitorados deve ser maior que zero.</small>
+                    </div>
                 </div>
-                <div class="col-md-4">
-                    <label for="qtdRouters" class="form-label">Roteadores/Switches (SNMP)</label>
-                    <input type="number" class="form-control" id="qtdRouters" min="0" value="0">
-                </div>
-                <div class="col-md-4">
-                    <label for="qtdVMs" class="form-label">Máquinas Virtuais (VMs)</label>
-                    <input type="number" class="form-control" id="qtdVMs" min="0" value="0">
-                </div>
-                <div class="col-md-12">
-                  <small class="text-muted">Informe 0 se o item não se aplica. O total deve ser maior que zero.</small>
+
+                <div id="zabbixCloudFields" style="display: none;" class="row g-3 mb-4 p-3 border rounded">
+                    <label class="form-label fw-bold text-danger"><i class="fas fa-cloud me-2"></i> 3. Detalhamento de Ativos (Cloud)</label>
+                    <div class="col-md-6">
+                        <label for="qtdServersCloud" class="form-label">Servidores/Instâncias (EC2, VMs, etc.)</label>
+                        <input type="number" class="form-control" id="qtdServersCloud" min="0" value="0">
+                    </div>
+                    <div class="col-md-12 mt-3">
+                      <small class="text-muted">O monitoramento Cloud inclui instâncias e pode ter custos de API. Informe a quantidade de recursos críticos.</small>
+                    </div>
                 </div>
             </div>
 
@@ -633,10 +652,14 @@ Com expertise comprovada, suporte dedicado, soluções sob medida e inovação c
     const resultNoteEl = document.getElementById('resultNote');
 
     // Elementos Condicionais Zabbix
-    const zabbixFields = document.getElementById('zabbixFields');
-    const qtdServers = document.getElementById('qtdServers');
+    const zabbixFieldsContainer = document.getElementById('zabbixFieldsContainer');
+    const zabbixOnPremFields = document.getElementById('zabbixOnPremFields');
+    const qtdServersOnPrem = document.getElementById('qtdServersOnPrem');
     const qtdRouters = document.getElementById('qtdRouters');
-    const qtdVMs = document.getElementById('qtdVMs');
+    const qtdServices = document.getElementById('qtdServices');
+    const qtdLinks = document.getElementById('qtdLinks');
+    const zabbixCloudFields = document.getElementById('zabbixCloudFields');
+    const qtdServersCloud = document.getElementById('qtdServersCloud');
 
     // Elementos Condicionais Licenças
     const licenseFields = document.getElementById('licenseFields');
@@ -644,25 +667,34 @@ Com expertise comprovada, suporte dedicado, soluções sob medida e inovação c
     const licensePeriodContainer = document.getElementById('licensePeriodContainer');
     const licensePeriodInput = document.getElementById('licensePeriod');
 
-    // Função para mostrar/esconder campos baseado na seleção
+    // Funções para gerenciamento de visibilidade
+    function resetZabbixFields() {
+      zabbixFieldsContainer.style.display = 'none';
+      zabbixOnPremFields.style.display = 'none';
+      zabbixCloudFields.style.display = 'none';
+      environmentFieldContainer.style.display = 'none';
+      environmentTypeSelect.required = false;
+      environmentTypeSelect.value = ''; // Limpa a seleção de ambiente
+    }
+
+    function resetLicenseFields() {
+      licenseFields.style.display = 'none';
+      licensePeriodContainer.style.display = 'none';
+      qtdLicenses.required = false;
+      licensePeriodInput.required = false;
+    }
+
+    // Listener principal (Tipo de Serviço)
     serviceTypeSelect.addEventListener('change', () => {
       const selectedService = serviceTypeSelect.value;
       
-      // Resetar visibilidade
-      zabbixFields.style.display = 'none';
-      environmentFieldContainer.style.display = 'none';
-      licenseFields.style.display = 'none';
-      licensePeriodContainer.style.display = 'none';
-
-      // Resetar requisitos
-      environmentTypeSelect.required = false;
-      qtdLicenses.required = false;
-      licensePeriodInput.required = false;
+      resetZabbixFields();
+      resetLicenseFields();
 
       if (selectedService === 'zabbix') {
-        zabbixFields.style.display = 'flex';
         environmentFieldContainer.style.display = 'block';
         environmentTypeSelect.required = true;
+        zabbixFieldsContainer.style.display = 'block';
       } else if (selectedService === 'kaspersky' || selectedService === 'veeam') {
         licenseFields.style.display = 'block';
         licensePeriodContainer.style.display = 'block';
@@ -671,6 +703,21 @@ Com expertise comprovada, suporte dedicado, soluções sob medida e inovação c
       }
       resultDiv.style.display = 'none'; // Esconde resultado ao mudar serviço
     });
+
+    // Listener de Ambiente (Mostra os campos específicos do Zabbix)
+    environmentTypeSelect.addEventListener('change', () => {
+        const environmentType = environmentTypeSelect.value;
+        zabbixOnPremFields.style.display = 'none';
+        zabbixCloudFields.style.display = 'none';
+        resultDiv.style.display = 'none';
+
+        if (environmentType === 'onpremises') {
+            zabbixOnPremFields.style.display = 'flex';
+        } else if (environmentType === 'cloud') {
+            zabbixCloudFields.style.display = 'flex';
+        }
+    });
+
 
     form.addEventListener('submit', function(event) {
       event.preventDefault();
@@ -681,42 +728,64 @@ Com expertise comprovada, suporte dedicado, soluções sob medida e inovação c
       let totalItems = 0;
       let monthlySupportCost = 0;
 
-      // --- IMPORTANTE: AJUSTE OS VALORES ABAIXO PARA SUAS REAIS METRICAS/PREÇOS ---
-      // Valores de exemplo para custo. AJUSTE-OS!
-      const COST_SERVER = 200; // Custo mensal por Servidor (Zabbix)
-      const COST_ROUTER = 100; // Custo mensal por Roteador (Zabbix)
-      const COST_VM = 150;     // Custo mensal por VM (Zabbix)
-      const COST_IMPLEMENTATION = 4000; // Custo único de implementação (Zabbix base)
-      const CLOUD_MULTIPLIER = 1.25; // Aumenta o custo mensal em 25% para Cloud devido à complexidade/APIs
+      // =========================================================================
+      // --- ⚠️ DEFINIÇÕES DE PREÇOS (AJUSTE CONFORME OS VALORES OFICIAIS DA GLCTECH) ---
+      // =========================================================================
+      
+      // ZABBIX (Serviços e Implementação) - CUSTOS MENSAIS POR ITEM
+      const COST_SERVER_ONPREM = 200;       // Servidor/VM Local
+      const COST_ROUTER_SWITCH = 100;       // Dispositivos de Rede
+      const COST_SERVICE = 150;             // Serviços/Aplicações (DB, WebApp)
+      const COST_LINK = 80;                 // Links de Internet
+      const COST_SERVER_CLOUD = 250;        // Servidor/Instância Cloud (maior complexidade/APIs)
+      const COST_IMPLEMENTATION_ONPREM = 4000; // Custo único de implementação On-Prem
+      const COST_IMPLEMENTATION_CLOUD = 5000;  // Custo único de implementação Cloud
 
-      const COST_KASPERSKY_PER_ITEM_YEAR = 600; // Custo ANUAL por licença
-      const COST_VEEAM_PER_ITEM_MONTH = 90;     // Custo MENSAL por licença
+      // LICENÇAS (Baseado em estimativas públicas - Altamente variável!)
+      const COST_KASPERSKY_PER_ITEM_YEAR = 130.00; // Estimativa ANUAL simplificada por licença
+      const COST_VEEAM_PER_ITEM_MONTH = 100.00;     // Estimativa MENSAL simplificada por licença
 
-
+      // =========================================================================
+      
       if (serviceType === 'zabbix') {
-        const servers = parseInt(qtdServers.value) || 0;
-        const routers = parseInt(qtdRouters.value) || 0;
-        const vms = parseInt(qtdVMs.value) || 0;
-        totalItems = servers + routers + vms;
+        let implementationCost = 0;
         
+        if (!environmentType) {
+             alert("Por favor, selecione o ambiente (Cloud ou On-premises).");
+             return;
+        }
+
+        if (environmentType === 'onpremises') {
+            const servers = parseInt(qtdServersOnPrem.value) || 0;
+            const routers = parseInt(qtdRouters.value) || 0;
+            const services = parseInt(qtdServices.value) || 0;
+            const links = parseInt(qtdLinks.value) || 0;
+
+            totalItems = servers + routers + services + links;
+            implementationCost = COST_IMPLEMENTATION_ONPREM;
+
+            monthlySupportCost = 
+              (servers * COST_SERVER_ONPREM) + 
+              (routers * COST_ROUTER_SWITCH) + 
+              (services * COST_SERVICE) +
+              (links * COST_LINK);
+
+        } else if (environmentType === 'cloud') {
+            const servers = parseInt(qtdServersCloud.value) || 0;
+            
+            totalItems = servers;
+            implementationCost = COST_IMPLEMENTATION_CLOUD;
+
+            monthlySupportCost = servers * COST_SERVER_CLOUD;
+        }
+
         if (totalItems === 0) {
            alert("Por favor, informe a quantidade de itens a serem monitorados.");
            return;
         }
         
-        // 1. Calcular Custo de Suporte Mensal Base
-        monthlySupportCost = 
-          (servers * COST_SERVER) + 
-          (routers * COST_ROUTER) + 
-          (vms * COST_VM);
-
-        // 2. Aplicar Multiplicador de Cloud (se aplicável)
-        if (environmentType === 'cloud') {
-            monthlySupportCost *= CLOUD_MULTIPLIER;
-        }
-
-        // 3. Calcular Custo Total Estimado (Implementação + 1 Mês de Suporte)
-        totalCost = COST_IMPLEMENTATION + monthlySupportCost;
+        // Custo Total: Implementação + 1 Mês de Suporte
+        totalCost = implementationCost + monthlySupportCost;
         
         resultNoteEl.innerHTML = `* Este valor é uma **estimativa de implementação + 1 mês de serviço**. O custo mensal recorrente estimado é de ${ monthlySupportCost.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) }.`;
 
@@ -724,8 +793,8 @@ Com expertise comprovada, suporte dedicado, soluções sob medida e inovação c
         totalItems = parseInt(qtdLicenses.value) || 0;
         const period = parseInt(licensePeriodInput.value) || 12;
 
-        if (totalItems === 0) {
-           alert("Por favor, informe a quantidade de licenças.");
+        if (totalItems === 0 || period === 0) {
+           alert("Por favor, informe a quantidade de licenças e o período.");
            return;
         }
 
@@ -737,8 +806,8 @@ Com expertise comprovada, suporte dedicado, soluções sob medida e inovação c
         totalItems = parseInt(qtdLicenses.value) || 0;
         const period = parseInt(licensePeriodInput.value) || 12;
         
-        if (totalItems === 0) {
-           alert("Por favor, informe a quantidade de licenças.");
+        if (totalItems === 0 || period === 0) {
+           alert("Por favor, informe a quantidade de licenças e o período.");
            return;
         }
 
