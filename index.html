@@ -500,6 +500,60 @@ Com expertise comprovada, suporte dedicado, soluções sob medida e inovação c
   </div>
 </section>
 
+
+<!-- =========CALCULADORA ========-->
+
+
+
+
+
+<section id="calculator" class="py-5" style="background-color: #f8f9fa;">
+  <div class="container">
+    <h2 class="section-title text-center">Calcule o Valor Estimado dos Nossos Serviços</h2>
+    <p class="section-subtitle text-center mb-5">
+      Obtenha uma estimativa rápida para o Monitoramento (Zabbix) e Licenciamento (Kaspersky/Veeam).
+    </p>
+
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="card p-4 shadow-sm">
+          <form id="serviceCalculatorForm">
+            <div class="mb-4">
+              <label for="serviceType" class="form-label fw-bold">1. Selecione o Serviço Principal</label>
+              <select class="form-select" id="serviceType" required>
+                <option value="">-- Escolha um serviço --</option>
+                <option value="zabbix">Monitoramento Zabbix (Implementação + Suporte)</option>
+                <option value="kaspersky">Segurança Kaspersky (Licenciamento)</option>
+                <option value="veeam">Backup Veeam (Licenciamento)</option>
+              </select>
+            </div>
+
+            <div class="mb-4">
+              <label for="itemQuantity" class="form-label fw-bold">2. Informe a Quantidade de Itens/Licenças</label>
+              <small class="text-muted d-block mb-2">Para Zabbix, informe o número de servidores/aplicações a serem monitorados. Para Kaspersky/Veeam, informe o número de licenças/máquinas virtuais.</small>
+              <input type="number" class="form-control" id="itemQuantity" min="1" value="1" required>
+            </div>
+
+            <div class="d-grid mb-4">
+              <button type="submit" class="btn btn-danger btn-lg">Calcular Estimativa</button>
+            </div>
+          </form>
+
+          <div id="calculationResult" class="mt-4 p-3 border rounded text-center" style="display: none;">
+            <h4 class="text-dark fw-bold">Resultado da Estimativa:</h4>
+            <p class="h2 text-danger fw-bolder" id="estimatedValue">R$ 0,00</p>
+            <p class="small text-muted mt-3">
+              * Este valor é apenas uma **estimativa inicial** e não inclui custos de infraestrutura ou serviços adicionais. Para um orçamento oficial e detalhado, entre em contato.
+            </p>
+            <a href="#contact" class="btn btn-outline-danger btn-sm mt-2">Solicitar Orçamento Oficial</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
      <!-- ======= CONTACT ======= -->
 
     <section id="contact" class="contact" aria-labelledby="contact-title">
@@ -528,6 +582,55 @@ Com expertise comprovada, suporte dedicado, soluções sob medida e inovação c
       </div>
     </section>
   </main>
+
+<!-- ========= SCRIPT CALCULADORA ======-->
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('serviceCalculatorForm');
+    const resultDiv = document.getElementById('calculationResult');
+    const estimatedValueEl = document.getElementById('estimatedValue');
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const serviceType = document.getElementById('serviceType').value;
+      const quantity = parseInt(document.getElementById('itemQuantity').value);
+      let baseCost = 0;
+      let costPerItem = 0;
+
+      // --- IMPORTANTE: AJUSTE OS VALORES ABAIXO PARA SUAS REAIS METRICAS/PREÇOS ---
+
+      if (serviceType === 'zabbix') {
+        // Exemplo: Implementação (R$ 2000) + R$ 100 por item/servidor monitorado/mês
+        baseCost = 2000; 
+        costPerItem = 100;
+      } else if (serviceType === 'kaspersky') {
+        // Exemplo: R$ 50 por licença por ano (mensalizando)
+        costPerItem = 50; 
+      } else if (serviceType === 'veeam') {
+        // Exemplo: R$ 80 por licença (VM) por mês
+        costPerItem = 80; 
+      } else {
+        estimatedValueEl.textContent = 'Selecione um Serviço';
+        resultDiv.style.display = 'block';
+        return;
+      }
+
+      // Calcula o valor total (Mensal ou de Implementação + Mensal, dependendo da sua métrica)
+      // Ajuste esta lógica para refletir o seu modelo de precificação
+      const totalCost = baseCost + (quantity * costPerItem);
+      
+      estimatedValueEl.textContent = totalCost.toLocaleString('pt-BR', {
+        style: 'currency',
+        currency: 'BRL'
+      });
+
+      resultDiv.style.display = 'block';
+    });
+  });
+</script>
 
 
 <!-- ======== SCRIPT MENU HAMBÚRGUER ======== -->
