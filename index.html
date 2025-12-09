@@ -503,49 +503,75 @@ Com expertise comprovada, suporte dedicado, soluções sob medida e inovação c
 
 <!-- =========CALCULADORA ========-->
 
-
-
-
-
 <section id="calculator" class="py-5" style="background-color: #f8f9fa;">
   <div class="container">
-    <h2 class="section-title text-center">Calcule o Valor Estimado dos Nossos Serviços</h2>
+    <h2 class="section-title text-center">Simule o Investimento em TI da Sua Empresa</h2>
+    <div class="mx-auto mb-4" style="width: 80px; height: 3px; background-color: #E4002B;"></div>
     <p class="section-subtitle text-center mb-5">
-      Obtenha uma estimativa rápida para o Monitoramento (Zabbix) e Licenciamento (Kaspersky/Veeam).
+      Obtenha uma estimativa rápida para Monitoramento Zabbix, e Licenciamento Kaspersky e Veeam.
     </p>
 
     <div class="row justify-content-center">
-      <div class="col-lg-8">
-        <div class="card p-4 shadow-sm">
+      <div class="col-lg-10">
+        <div class="card p-4 shadow-lg border-0 rounded-3">
           <form id="serviceCalculatorForm">
-            <div class="mb-4">
-              <label for="serviceType" class="form-label fw-bold">1. Selecione o Serviço Principal</label>
-              <select class="form-select" id="serviceType" required>
-                <option value="">-- Escolha um serviço --</option>
-                <option value="zabbix">Monitoramento Zabbix (Implementação + Suporte)</option>
-                <option value="kaspersky">Segurança Kaspersky (Licenciamento)</option>
-                <option value="veeam">Backup Veeam (Licenciamento)</option>
-              </select>
+            <div class="row g-4 mb-4">
+              <div class="col-md-12">
+                <div class="card h-100 p-3 bg-light border-danger border-2">
+                  <label for="serviceType" class="form-label fw-bold"><i class="fas fa-desktop me-2"></i> 1. Qual serviço você precisa?</label>
+                  <select class="form-select" id="serviceType" required>
+                    <option value="">-- Selecione uma opção --</option>
+                    <option value="zabbix">Monitoramento Zabbix</option>
+                    <option value="kaspersky">Segurança Kaspersky (Licença)</option>
+                    <option value="veeam">Backup Veeam (Licença)</option>
+                  </select>
+                </div>
+              </div>
             </div>
 
-            <div class="mb-4">
-              <label for="itemQuantity" class="form-label fw-bold">2. Informe a Quantidade de Itens/Licenças</label>
-              <small class="text-muted d-block mb-2">Para Zabbix, informe o número de servidores/aplicações a serem monitorados. Para Kaspersky/Veeam, informe o número de licenças/máquinas virtuais.</small>
-              <input type="number" class="form-control" id="itemQuantity" min="1" value="1" required>
+            <div id="zabbixFields" style="display: none;" class="row g-3 mb-4">
+                <label class="form-label fw-bold"><i class="fas fa-layer-group me-2"></i> 2. Quantidade de Itens (Zabbix)</label>
+                <div class="col-md-4">
+                    <label for="qtdServers" class="form-label">Servidores (OS)</label>
+                    <input type="number" class="form-control" id="qtdServers" min="0" value="0">
+                </div>
+                <div class="col-md-4">
+                    <label for="qtdRouters" class="form-label">Roteadores/Switches (SNMP)</label>
+                    <input type="number" class="form-control" id="qtdRouters" min="0" value="0">
+                </div>
+                <div class="col-md-4">
+                    <label for="qtdVMs" class="form-label">Máquinas Virtuais (VMs)</label>
+                    <input type="number" class="form-control" id="qtdVMs" min="0" value="0">
+                </div>
+                <div class="col-md-12">
+                  <small class="text-muted">Informe 0 se o item não se aplica. O total deve ser maior que zero.</small>
+                </div>
+            </div>
+
+            <div id="licenseFields" style="display: none;">
+                <div class="mb-4">
+                  <label for="qtdLicenses" class="form-label fw-bold"><i class="fas fa-layer-group me-2"></i> 2. Quantidade de Licenças</label>
+                  <input type="number" class="form-control" id="qtdLicenses" min="1" value="1">
+                </div>
+            </div>
+
+            <div class="mb-4" id="licensePeriodContainer" style="display: none;">
+              <label for="licensePeriod" class="form-label fw-bold"><i class="fas fa-calendar-alt me-2"></i> 3. Período de Licenciamento (em meses)</label>
+              <input type="number" class="form-control" id="licensePeriod" min="1" value="12">
             </div>
 
             <div class="d-grid mb-4">
-              <button type="submit" class="btn btn-danger btn-lg">Calcular Estimativa</button>
+              <button type="submit" class="btn btn-danger btn-lg"><i class="fas fa-calculator me-2"></i> Calcular Estimativa</button>
             </div>
           </form>
 
-          <div id="calculationResult" class="mt-4 p-3 border rounded text-center" style="display: none;">
-            <h4 class="text-dark fw-bold">Resultado da Estimativa:</h4>
-            <p class="h2 text-danger fw-bolder" id="estimatedValue">R$ 0,00</p>
-            <p class="small text-muted mt-3">
-              * Este valor é apenas uma **estimativa inicial** e não inclui custos de infraestrutura ou serviços adicionais. Para um orçamento oficial e detalhado, entre em contato.
+          <div id="calculationResult" class="mt-4 p-4 rounded text-center border-danger border-3" style="display: none; background-color: #fff3f3;">
+            <h4 class="text-dark fw-bold">Seu Investimento Estimado:</h4>
+            <p class="h1 text-danger fw-bolder" id="estimatedValue">R$ 0,00</p>
+            <p class="small text-muted mt-3" id="resultNote">
+              * Este valor é uma **estimativa inicial**. Para um orçamento oficial e detalhado, entre em contato.
             </p>
-            <a href="#contact" class="btn btn-outline-danger btn-sm mt-2">Solicitar Orçamento Oficial</a>
+            <a href="#contact" class="btn btn-outline-danger btn-sm mt-2"><i class="fas fa-paper-plane me-2"></i> Solicitar Orçamento Oficial</a>
           </div>
         </div>
       </div>
@@ -591,36 +617,115 @@ Com expertise comprovada, suporte dedicado, soluções sob medida e inovação c
     const form = document.getElementById('serviceCalculatorForm');
     const resultDiv = document.getElementById('calculationResult');
     const estimatedValueEl = document.getElementById('estimatedValue');
+    const serviceTypeSelect = document.getElementById('serviceType');
+    const resultNoteEl = document.getElementById('resultNote');
+
+    // Elementos Condicionais Zabbix
+    const zabbixFields = document.getElementById('zabbixFields');
+    const qtdServers = document.getElementById('qtdServers');
+    const qtdRouters = document.getElementById('qtdRouters');
+    const qtdVMs = document.getElementById('qtdVMs');
+
+    // Elementos Condicionais Licenças
+    const licenseFields = document.getElementById('licenseFields');
+    const qtdLicenses = document.getElementById('qtdLicenses');
+    const licensePeriodContainer = document.getElementById('licensePeriodContainer');
+    const licensePeriodInput = document.getElementById('licensePeriod');
+
+    // Função para mostrar/esconder campos baseado na seleção
+    serviceTypeSelect.addEventListener('change', () => {
+      const selectedService = serviceTypeSelect.value;
+      
+      // Resetar visibilidade
+      zabbixFields.style.display = 'none';
+      licenseFields.style.display = 'none';
+      licensePeriodContainer.style.display = 'none';
+
+      // Resetar requisitos
+      qtdLicenses.required = false;
+      licensePeriodInput.required = false;
+
+      if (selectedService === 'zabbix') {
+        zabbixFields.style.display = 'flex';
+        // Opcional: forçar Zabbix fields a serem necessários para cálculo
+      } else if (selectedService === 'kaspersky' || selectedService === 'veeam') {
+        licenseFields.style.display = 'block';
+        licensePeriodContainer.style.display = 'block';
+        qtdLicenses.required = true;
+        licensePeriodInput.required = true;
+      }
+      resultDiv.style.display = 'none'; // Esconde resultado ao mudar serviço
+    });
 
     form.addEventListener('submit', function(event) {
       event.preventDefault();
 
-      const serviceType = document.getElementById('serviceType').value;
-      const quantity = parseInt(document.getElementById('itemQuantity').value);
-      let baseCost = 0;
-      let costPerItem = 0;
+      const serviceType = serviceTypeSelect.value;
+      let totalCost = 0;
+      let totalItems = 0;
 
       // --- IMPORTANTE: AJUSTE OS VALORES ABAIXO PARA SUAS REAIS METRICAS/PREÇOS ---
+      // Valores de exemplo para custo. AJUSTE-OS!
+      const COST_SERVER = 200; // Custo mensal por Servidor (Zabbix)
+      const COST_ROUTER = 100; // Custo mensal por Roteador (Zabbix)
+      const COST_VM = 150;     // Custo mensal por VM (Zabbix)
+      const COST_IMPLEMENTATION = 4000; // Custo único de implementação (Zabbix)
+      
+      const COST_KASPERSKY_PER_ITEM_YEAR = 600; // Custo ANUAL por licença
+      const COST_VEEAM_PER_ITEM_MONTH = 90;     // Custo MENSAL por licença
 
       if (serviceType === 'zabbix') {
-        // Exemplo: Implementação (R$ 2000) + R$ 100 por item/servidor monitorado/mês
-        baseCost = 2000; 
-        costPerItem = 100;
+        const servers = parseInt(qtdServers.value) || 0;
+        const routers = parseInt(qtdRouters.value) || 0;
+        const vms = parseInt(qtdVMs.value) || 0;
+        totalItems = servers + routers + vms;
+        
+        if (totalItems === 0) {
+           alert("Por favor, informe a quantidade de itens a serem monitorados.");
+           return;
+        }
+
+        // Custo do Primeiro Mês (Implementação + 1 Mês de Suporte)
+        const monthlySupportCost = 
+          (servers * COST_SERVER) + 
+          (routers * COST_ROUTER) + 
+          (vms * COST_VM);
+
+        totalCost = COST_IMPLEMENTATION + monthlySupportCost;
+        
+        resultNoteEl.innerHTML = `* Este valor é uma **estimativa de implementação + 1 mês de serviço**. O custo mensal recorrente é de ${ monthlySupportCost.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) }.`;
+
+
       } else if (serviceType === 'kaspersky') {
-        // Exemplo: R$ 50 por licença por ano (mensalizando)
-        costPerItem = 50; 
+        totalItems = parseInt(qtdLicenses.value) || 0;
+        const period = parseInt(licensePeriodInput.value) || 12;
+
+        if (totalItems === 0) {
+           alert("Por favor, informe a quantidade de licenças.");
+           return;
+        }
+
+        // Custo total: Qtd Licenças * Custo Anual * (Meses / 12)
+        totalCost = (totalItems * COST_KASPERSKY_PER_ITEM_YEAR) * (period / 12);
+        resultNoteEl.innerHTML = `* Este valor é o **custo total do licenciamento** para ${totalItems} licenças durante ${period} meses.`;
+
       } else if (serviceType === 'veeam') {
-        // Exemplo: R$ 80 por licença (VM) por mês
-        costPerItem = 80; 
+        totalItems = parseInt(qtdLicenses.value) || 0;
+        const period = parseInt(licensePeriodInput.value) || 12;
+        
+        if (totalItems === 0) {
+           alert("Por favor, informe a quantidade de licenças.");
+           return;
+        }
+
+        // Custo total: Qtd Licenças * Custo Mensal * Meses
+        totalCost = totalItems * COST_VEEAM_PER_ITEM_MONTH * period;
+        resultNoteEl.innerHTML = `* Este valor é o **custo total do licenciamento** para ${totalItems} licenças durante ${period} meses.`;
       } else {
-        estimatedValueEl.textContent = 'Selecione um Serviço';
+        estimatedValueEl.textContent = 'Selecione um Serviço Válido';
         resultDiv.style.display = 'block';
         return;
       }
-
-      // Calcula o valor total (Mensal ou de Implementação + Mensal, dependendo da sua métrica)
-      // Ajuste esta lógica para refletir o seu modelo de precificação
-      const totalCost = baseCost + (quantity * costPerItem);
       
       estimatedValueEl.textContent = totalCost.toLocaleString('pt-BR', {
         style: 'currency',
