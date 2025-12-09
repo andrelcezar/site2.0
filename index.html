@@ -516,7 +516,7 @@ Com expertise comprovada, suporte dedicado, soluções sob medida e inovação c
         <div class="card p-4 shadow-lg border-0 rounded-3">
           <form id="serviceCalculatorForm">
             <div class="row g-4 mb-4">
-              <div class="col-md-12">
+              <div class="col-md-6">
                 <div class="card h-100 p-3 bg-light border-danger border-2">
                   <label for="serviceType" class="form-label fw-bold"><i class="fas fa-desktop me-2"></i> 1. Qual serviço você precisa?</label>
                   <select class="form-select" id="serviceType" required>
@@ -527,10 +527,20 @@ Com expertise comprovada, suporte dedicado, soluções sob medida e inovação c
                   </select>
                 </div>
               </div>
-            </div>
 
+              <div class="col-md-6" id="environmentFieldContainer" style="display: none;">
+                <div class="card h-100 p-3 bg-light border-danger border-2">
+                  <label for="environmentType" class="form-label fw-bold"><i class="fas fa-cloud me-2"></i> 2. Qual o ambiente?</label>
+                  <select class="form-select" id="environmentType" required>
+                    <option value="onpremises">On-premises (Local)</option>
+                    <option value="cloud">Cloud (AWS, Azure, GCP)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            
             <div id="zabbixFields" style="display: none;" class="row g-3 mb-4">
-                <label class="form-label fw-bold"><i class="fas fa-layer-group me-2"></i> 2. Quantidade de Itens (Zabbix)</label>
+                <label class="form-label fw-bold"><i class="fas fa-server me-2"></i> 3. Quantidade de Itens (Zabbix)</label>
                 <div class="col-md-4">
                     <label for="qtdServers" class="form-label">Servidores (OS)</label>
                     <input type="number" class="form-control" id="qtdServers" min="0" value="0">
@@ -550,13 +560,13 @@ Com expertise comprovada, suporte dedicado, soluções sob medida e inovação c
 
             <div id="licenseFields" style="display: none;">
                 <div class="mb-4">
-                  <label for="qtdLicenses" class="form-label fw-bold"><i class="fas fa-layer-group me-2"></i> 2. Quantidade de Licenças</label>
+                  <label for="qtdLicenses" class="form-label fw-bold"><i class="fas fa-key me-2"></i> 3. Quantidade de Licenças</label>
                   <input type="number" class="form-control" id="qtdLicenses" min="1" value="1">
                 </div>
             </div>
 
             <div class="mb-4" id="licensePeriodContainer" style="display: none;">
-              <label for="licensePeriod" class="form-label fw-bold"><i class="fas fa-calendar-alt me-2"></i> 3. Período de Licenciamento (em meses)</label>
+              <label for="licensePeriod" class="form-label fw-bold"><i class="fas fa-calendar-alt me-2"></i> 4. Período de Licenciamento (em meses)</label>
               <input type="number" class="form-control" id="licensePeriod" min="1" value="12">
             </div>
 
@@ -618,6 +628,8 @@ Com expertise comprovada, suporte dedicado, soluções sob medida e inovação c
     const resultDiv = document.getElementById('calculationResult');
     const estimatedValueEl = document.getElementById('estimatedValue');
     const serviceTypeSelect = document.getElementById('serviceType');
+    const environmentFieldContainer = document.getElementById('environmentFieldContainer');
+    const environmentTypeSelect = document.getElementById('environmentType');
     const resultNoteEl = document.getElementById('resultNote');
 
     // Elementos Condicionais Zabbix
@@ -638,16 +650,19 @@ Com expertise comprovada, suporte dedicado, soluções sob medida e inovação c
       
       // Resetar visibilidade
       zabbixFields.style.display = 'none';
+      environmentFieldContainer.style.display = 'none';
       licenseFields.style.display = 'none';
       licensePeriodContainer.style.display = 'none';
 
       // Resetar requisitos
+      environmentTypeSelect.required = false;
       qtdLicenses.required = false;
       licensePeriodInput.required = false;
 
       if (selectedService === 'zabbix') {
         zabbixFields.style.display = 'flex';
-        // Opcional: forçar Zabbix fields a serem necessários para cálculo
+        environmentFieldContainer.style.display = 'block';
+        environmentTypeSelect.required = true;
       } else if (selectedService === 'kaspersky' || selectedService === 'veeam') {
         licenseFields.style.display = 'block';
         licensePeriodContainer.style.display = 'block';
@@ -661,18 +676,22 @@ Com expertise comprovada, suporte dedicado, soluções sob medida e inovação c
       event.preventDefault();
 
       const serviceType = serviceTypeSelect.value;
+      const environmentType = environmentTypeSelect.value;
       let totalCost = 0;
       let totalItems = 0;
+      let monthlySupportCost = 0;
 
       // --- IMPORTANTE: AJUSTE OS VALORES ABAIXO PARA SUAS REAIS METRICAS/PREÇOS ---
       // Valores de exemplo para custo. AJUSTE-OS!
       const COST_SERVER = 200; // Custo mensal por Servidor (Zabbix)
       const COST_ROUTER = 100; // Custo mensal por Roteador (Zabbix)
       const COST_VM = 150;     // Custo mensal por VM (Zabbix)
-      const COST_IMPLEMENTATION = 4000; // Custo único de implementação (Zabbix)
-      
+      const COST_IMPLEMENTATION = 4000; // Custo único de implementação (Zabbix base)
+      const CLOUD_MULTIPLIER = 1.25; // Aumenta o custo mensal em 25% para Cloud devido à complexidade/APIs
+
       const COST_KASPERSKY_PER_ITEM_YEAR = 600; // Custo ANUAL por licença
       const COST_VEEAM_PER_ITEM_MONTH = 90;     // Custo MENSAL por licença
+
 
       if (serviceType === 'zabbix') {
         const servers = parseInt(qtdServers.value) || 0;
@@ -684,17 +703,22 @@ Com expertise comprovada, suporte dedicado, soluções sob medida e inovação c
            alert("Por favor, informe a quantidade de itens a serem monitorados.");
            return;
         }
-
-        // Custo do Primeiro Mês (Implementação + 1 Mês de Suporte)
-        const monthlySupportCost = 
+        
+        // 1. Calcular Custo de Suporte Mensal Base
+        monthlySupportCost = 
           (servers * COST_SERVER) + 
           (routers * COST_ROUTER) + 
           (vms * COST_VM);
 
+        // 2. Aplicar Multiplicador de Cloud (se aplicável)
+        if (environmentType === 'cloud') {
+            monthlySupportCost *= CLOUD_MULTIPLIER;
+        }
+
+        // 3. Calcular Custo Total Estimado (Implementação + 1 Mês de Suporte)
         totalCost = COST_IMPLEMENTATION + monthlySupportCost;
         
-        resultNoteEl.innerHTML = `* Este valor é uma **estimativa de implementação + 1 mês de serviço**. O custo mensal recorrente é de ${ monthlySupportCost.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) }.`;
-
+        resultNoteEl.innerHTML = `* Este valor é uma **estimativa de implementação + 1 mês de serviço**. O custo mensal recorrente estimado é de ${ monthlySupportCost.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) }.`;
 
       } else if (serviceType === 'kaspersky') {
         totalItems = parseInt(qtdLicenses.value) || 0;
@@ -736,7 +760,6 @@ Com expertise comprovada, suporte dedicado, soluções sob medida e inovação c
     });
   });
 </script>
-
 
 <!-- ======== SCRIPT MENU HAMBÚRGUER ======== -->
 <script>
