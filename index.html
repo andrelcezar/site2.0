@@ -503,7 +503,6 @@ Com expertise comprovada, suporte dedicado, soluções sob medida e inovação c
 
 <!-- =========CALCULADORA ========-->
 
-
 <section id="calculator" class="py-5" style="background-color: #f8f9fa;">
   <div class="container">
     <h2 class="section-title text-center">Simule o Investimento em TI da Sua Empresa</h2>
@@ -517,6 +516,7 @@ Com expertise comprovada, suporte dedicado, soluções sob medida e inovação c
         <div class="card p-4 shadow-lg border-0 rounded-3">
           <form id="serviceCalculatorForm">
             <div class="row g-4 mb-4">
+              
               <div class="col-md-12">
                 <div class="card h-100 p-3 bg-light border-danger border-2">
                   <label for="serviceType" class="form-label fw-bold"><i class="fas fa-desktop me-2"></i> 1. Qual serviço você precisa?</label>
@@ -529,6 +529,12 @@ Com expertise comprovada, suporte dedicado, soluções sob medida e inovação c
                 </div>
               </div>
 
+              <div id="serviceDescriptionContainer" class="col-md-12" style="display: none;">
+                <div class="alert alert-info border-0 shadow-sm p-3" role="alert">
+                    <h5 class="alert-heading text-danger fw-bold"><i class="fas fa-info-circle me-2"></i> Sobre o Serviço:</h5>
+                    <p id="serviceDescriptionText" class="mb-0"></p>
+                </div>
+              </div>
               <div class="col-md-12" id="environmentFieldContainer" style="display: none;">
                 <div class="card h-100 p-3 bg-light border-danger border-2">
                   <label for="environmentType" class="form-label fw-bold"><i class="fas fa-cloud me-2"></i> 2. Qual o ambiente de monitoramento?</label>
@@ -536,8 +542,7 @@ Com expertise comprovada, suporte dedicado, soluções sob medida e inovação c
                     <option value="">-- Selecione o ambiente --</option>
                     <option value="onpremises">On-premises (Local)</option>
                     <option value="cloud">Cloud (AWS, Azure, GCP)</option>
-                    <option value="cloud">Híbrido (Cloud + On-remises)</option>
-                  </select>
+                    <option value="hybrid">Híbrido (Cloud + On-remises)</option> </select>
                 </div>
               </div>
             </div>
@@ -579,7 +584,7 @@ Com expertise comprovada, suporte dedicado, soluções sob medida e inovação c
                 </div>
 
                 <div id="zabbixCloudFields" style="display: none;" class="row g-3 mb-4 p-3 border rounded">
-                    <label class="form-label fw-bold text-dark"><i class="fas fa-cloud me-2"></i> 3. Ativos e Estrutura (Cloud)</label>
+                    <label class="form-label fw-bold text-dark"><i class="fas fa-cloud me-2"></i> 3. Ativos e Estrutura (Cloud/Híbrido)</label>
                     <div class="col-md-6">
                         <label for="qtdServersCloud" class="form-label">Servidores/Instâncias (EC2, VMs, etc.)</label>
                         <input type="number" class="form-control" id="qtdServersCloud" value="10">
@@ -618,10 +623,10 @@ Com expertise comprovada, suporte dedicado, soluções sob medida e inovação c
                         </select>
                         <div class="mt-2 small text-muted">
                             <ul class="list-unstyled">
-                                <li>**0.5**: Antimalware, Firewall, Web/Mail Security.</li>
-                                <li>**1.0**: + Gerenciamento Centralizado, Controle de Aplicativos e Dispositivos.</li>
-                                <li>**1.5**: + EDR (Detecção e Resposta a Endpoint), Análise de Comportamento.</li>
-                                <li>**2.0**: + XDR, Segurança de Workloads Cloud e Servidores.</li>
+                                <li>**Small Business**: Antimalware, Firewall, Web/Mail Security.</li>
+                                <li>**EDR Foundations**: + Gerenciamento Centralizado, Controle de Aplicativos e Dispositivos.</li>
+                                <li>**EDR Optimum**: + EDR (Detecção e Resposta a Endpoint), Análise de Comportamento.</li>
+                                <li>**XDR Optimum**: + XDR, Segurança de Workloads Cloud e Servidores.</li>
                             </ul>
                         </div>
                     </div>
@@ -669,7 +674,7 @@ Com expertise comprovada, suporte dedicado, soluções sob medida e inovação c
                 </div>
             </div>
 
-            <div class="d-grid mb-4">
+            <div class="d-grid mb-4" hidden>
               <button type="submit" class="btn btn-danger btn-lg"><i class="fas fa-calculator me-2"></i> Recalcular Estimativa</button>
             </div>
           </form>
@@ -696,7 +701,6 @@ Com expertise comprovada, suporte dedicado, soluções sob medida e inovação c
     </div>
   </div>
 </section>
-
      <!-- ======= CONTACT ======= -->
 
     <section id="contact" class="contact" aria-labelledby="contact-title">
@@ -739,6 +743,11 @@ Com expertise comprovada, suporte dedicado, soluções sob medida e inovação c
     const environmentTypeSelect = document.getElementById('environmentType');
     const resultNoteEl = document.getElementById('resultNote');
     const resultDetailsEl = document.getElementById('resultDetails'); 
+    
+    // Elementos da Descrição do Serviço (Novos)
+    const serviceDescriptionContainer = document.getElementById('serviceDescriptionContainer');
+    const serviceDescriptionText = document.getElementById('serviceDescriptionText');
+
 
     // Zabbix Elements
     const zabbixFieldsContainer = document.getElementById('zabbixFieldsContainer');
@@ -747,20 +756,20 @@ Com expertise comprovada, suporte dedicado, soluções sob medida e inovação c
     const qtdRouters = document.getElementById('qtdRouters');
     const qtdServices = document.getElementById('qtdServices');
     const qtdLinks = document.getElementById('qtdLinks');
-    const qtdFiliaisOnPrem = document.getElementById('qtdFiliaisOnPrem'); // NOVO
-    const qtdProxiesOnPrem = document.getElementById('qtdProxiesOnPrem'); // NOVO
+    const qtdFiliaisOnPrem = document.getElementById('qtdFiliaisOnPrem'); 
+    const qtdProxiesOnPrem = document.getElementById('qtdProxiesOnPrem'); 
     const zabbixCloudFields = document.getElementById('zabbixCloudFields');
     const qtdServersCloud = document.getElementById('qtdServersCloud');
-    const qtdFiliaisCloud = document.getElementById('qtdFiliaisCloud');   // NOVO
-    const qtdProxiesCloud = document.getElementById('qtdProxiesCloud');   // NOVO
+    const qtdFiliaisCloud = document.getElementById('qtdFiliaisCloud');   
+    const qtdProxiesCloud = document.getElementById('qtdProxiesCloud');   
 
-    // Kaspersky Elements (Mantidos)
+    // Kaspersky Elements 
     const kasperskyFields = document.getElementById('kasperskyFields');
     const qtdKasperskyEndpoints = document.getElementById('qtdKasperskyEndpoints');
     const kasperskyTier = document.getElementById('kasperskyTier');
     const kasperskyPeriod = document.getElementById('kasperskyPeriod');
 
-    // Veeam Elements (Mantidos)
+    // Veeam Elements 
     const veeamFields = document.getElementById('veeamFields');
     const qtdVeeamVMs = document.getElementById('qtdVeeamVMs');
     const qtdVeeamWorkstations = document.getElementById('qtdVeeamWorkstations');
@@ -785,11 +794,11 @@ Com expertise comprovada, suporte dedicado, soluções sob medida e inovação c
     const THRESHOLD_MEDIUM = 25;
     const DAYS_SMALL = 5; 
     const DAYS_MEDIUM = 10;
-    const ASSETS_PER_EXTRA_DAY = 5; // 1 dia extra para cada 5 ativos acima de 25
+    const ASSETS_PER_EXTRA_DAY = 5; 
 
-    // Parametros de Estrutura Distribuída (NOVO)
-    const BRANCH_OVERHEAD_DAYS = 1.0; // 1 dia por filial para planejamento e gestão de rede
-    const PROXY_INSTALL_DAYS = 2.0;   // 2 dias por proxy para instalação, hardening e configuração
+    // Parametros de Estrutura Distribuída
+    const BRANCH_OVERHEAD_DAYS = 1.0; 
+    const PROXY_INSTALL_DAYS = 2.0;   
 
     // KASPERSKY (Licenças)
     const COST_KASPERSKY_SMALL_BUSINESS_YEAR = 150.00; 
@@ -818,6 +827,26 @@ Com expertise comprovada, suporte dedicado, soluções sob medida e inovação c
       veeamFields.style.display = 'none';
       environmentTypeSelect.required = false;
     }
+    
+    // --- FUNÇÃO PARA ADICIONAR DESCRIÇÃO DO SERVIÇO (NOVO) ---
+    function updateServiceDescription(serviceType) {
+        let description = "";
+
+        if (serviceType === 'zabbix') {
+            description = `O **Zabbix** é a solução de monitoramento unificado. O cálculo estima o custo de **implementação** (setup, configuração, dashboards) e o valor do **suporte mensal** baseado na complexidade e no número de ativos (servidores, redes, aplicações).`;
+        } else if (serviceType === 'kaspersky') {
+            description = `O **Kaspersky** oferece proteção Endpoint de última geração. O cálculo estima o **custo total de licenciamento** (por usuário/endpoint) pelo período selecionado, de acordo com o nível de segurança (Small Business, EDR, XDR).`;
+        } else if (serviceType === 'veeam') {
+            description = `O **Veeam Data Platform** (VUL) simplifica o backup e recuperação. O cálculo estima o **custo total de licenciamento VUL** (por workload) pelo período, baseado na edição (Foundation, Advanced, Premium) e no número de VMs, servidores e workstations.`;
+        }
+
+        if (description) {
+            serviceDescriptionText.innerHTML = description;
+            serviceDescriptionContainer.style.display = 'block';
+        } else {
+            serviceDescriptionContainer.style.display = 'none';
+        }
+    }
 
     // --- Função Principal de Cálculo ---
     function calculateTotal() {
@@ -835,25 +864,27 @@ Com expertise comprovada, suporte dedicado, soluções sob medida e inovação c
       
       if (serviceType === 'zabbix') {
         let totalAssets = 0;
-        let coreMonitoringDays = 0; // Dias para o monitoramento central de ativos
+        let coreMonitoringDays = 0; 
         let monthlySupportCost = 0;
         
         const environmentType = environmentTypeSelect.value;
 
         if (!environmentType) {
             estimatedValueEl.textContent = 'R$ 0,00';
-            resultDetailsEl.innerHTML = '<p class="text-danger text-center">Selecione o ambiente (Cloud ou On-premises) para calcular.</p>';
+            resultDetailsEl.innerHTML = '<p class="text-danger text-center">Selecione o ambiente (Cloud, Híbrido ou On-premises) para calcular.</p>';
             return;
         }
 
-        // 1. Lendo os novos inputs
-        const qtdFiliais = environmentType === 'onpremises' 
-            ? Math.max(1, parseInt(qtdFiliaisOnPrem.value) || 1) 
-            : Math.max(1, parseInt(qtdFiliaisCloud.value) || 1); 
+        // 1. Lendo os inputs de estrutura distribuída
+        const isCloudOrHybrid = environmentType === 'cloud' || environmentType === 'hybrid'; // Suporte Híbrido
+
+        const qtdFiliais = isCloudOrHybrid
+            ? Math.max(1, parseInt(qtdFiliaisCloud.value) || 1) 
+            : Math.max(1, parseInt(qtdFiliaisOnPrem.value) || 1); 
             
-        const proxiesPerBranch = environmentType === 'onpremises' 
-            ? Math.max(0, parseInt(qtdProxiesOnPrem.value) || 0)
-            : Math.max(0, parseInt(qtdProxiesCloud.value) || 0);
+        const proxiesPerBranch = isCloudOrHybrid
+            ? Math.max(0, parseInt(qtdProxiesCloud.value) || 0)
+            : Math.max(0, parseInt(qtdProxiesOnPrem.value) || 0);
 
         const totalProxies = qtdFiliais * proxiesPerBranch;
 
@@ -867,10 +898,11 @@ Com expertise comprovada, suporte dedicado, soluções sob medida e inovação c
             totalAssets = servers + routers + services + links;
             monthlySupportCost = (totalAssets <= THRESHOLD_SMALL) ? SUPPORT_TIER_S : (totalAssets <= THRESHOLD_MEDIUM ? SUPPORT_TIER_M : SUPPORT_TIER_L);
 
-        } else if (environmentType === 'cloud') {
+        } else if (isCloudOrHybrid) { // Lógica para Cloud e Híbrido
             const servers = Math.max(0, parseInt(qtdServersCloud.value) || 0);
             totalAssets = servers;
-            monthlySupportCost = (totalAssets <= THRESHOLD_SMALL) ? SUPPORT_TIER_M : SUPPORT_TIER_L; // Cloud tem suporte Mínimo M
+            // Cloud/Híbrido geralmente têm suporte Mínimo M
+            monthlySupportCost = (totalAssets <= THRESHOLD_SMALL) ? SUPPORT_TIER_M : SUPPORT_TIER_L; 
         }
 
         if (totalAssets < 1) {
@@ -1043,6 +1075,7 @@ Com expertise comprovada, suporte dedicado, soluções sob medida e inovação c
       const selectedService = serviceTypeSelect.value;
       
       hideAllConditionalFields();
+      updateServiceDescription(selectedService); // Chama a função de descrição
       
       environmentTypeSelect.value = ''; 
 
@@ -1059,15 +1092,18 @@ Com expertise comprovada, suporte dedicado, soluções sob medida e inovação c
       calculateTotal();
     });
 
-    // Listener de Ambiente Zabbix (precisa recalcular e mostrar/esconder campos)
+    // Listener de Ambiente Zabbix (incluindo Híbrido)
     environmentTypeSelect.addEventListener('change', () => {
         const environmentType = environmentTypeSelect.value;
         zabbixOnPremFields.style.display = 'none';
         zabbixCloudFields.style.display = 'none';
+        
+        // Verifica se é Cloud ou Híbrido para usar os campos Cloud
+        const isCloudOrHybrid = environmentType === 'cloud' || environmentType === 'hybrid';
 
         if (environmentType === 'onpremises') {
             zabbixOnPremFields.style.display = 'flex';
-        } else if (environmentType === 'cloud') {
+        } else if (isCloudOrHybrid) { 
             zabbixCloudFields.style.display = 'flex';
         }
         calculateTotal();
@@ -1077,7 +1113,7 @@ Com expertise comprovada, suporte dedicado, soluções sob medida e inovação c
     const inputElements = [
         // Zabbix On-Prem
         qtdServersOnPrem, qtdRouters, qtdServices, qtdLinks, qtdFiliaisOnPrem, qtdProxiesOnPrem,
-        // Zabbix Cloud
+        // Zabbix Cloud (também usado para Híbrido)
         qtdServersCloud, qtdFiliaisCloud, qtdProxiesCloud,
         // Kaspersky
         qtdKasperskyEndpoints, kasperskyTier, kasperskyPeriod,
@@ -1088,13 +1124,12 @@ Com expertise comprovada, suporte dedicado, soluções sob medida e inovação c
     // Adiciona o listener para cada input
     inputElements.forEach(element => {
         if (element) { 
-            // 'input' é para texto/número, 'change' para selects
             const eventType = element.tagName === 'SELECT' ? 'change' : 'input';
             element.addEventListener(eventType, calculateTotal);
         }
     });
 
-    // Submissão do formulário (para o caso de o usuário pressionar Enter ou clicar no botão)
+    // Submissão do formulário 
     form.addEventListener('submit', function(event) {
       event.preventDefault();
       calculateTotal(); 
@@ -1104,7 +1139,6 @@ Com expertise comprovada, suporte dedicado, soluções sob medida e inovação c
     calculateTotal(); 
   });
 </script>
-
 <!-- ======== SCRIPT MENU HAMBÚRGUER ======== -->
 <script>
   document.addEventListener("DOMContentLoaded", function() {
