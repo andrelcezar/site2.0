@@ -54,7 +54,7 @@
           <li><a href="./index.html" class="active">Início</a></li>
           <li><a href="./index.html#about">Sobre</a></li>
           <li><a href="./index.html#services">Serviços</a></li>
-          <li><a href="https://ty0ci.share.hsforms.com/2dDZ5-CdFTKektziqcbgsTQ" target="_blank" rel="noopener" >Trabalhe Conosco</a></li>
+          <li><a href="https://ty0ci.share.hsforms.com/2dDZ5-CdFTKektziqcbgsTQ" target="_blank" rel="noopener" hidden>Trabalhe Conosco</a></li>
           <li><a href="./index.html#contact">Contato</a></li>
         </ul>
       </nav>
@@ -91,12 +91,12 @@
           Nossa equipe especialista em <strong>Zabbix 7.2</strong> desenvolve templates, triggers e dashboards sob medida, permitindo que sua equipe de TI atue com rapidez e precisão.
         </p>
 
-        <a href="./index.html#contact" class="btn btn-danger mt-3 px-4">Solicitar Demonstração</a>
+        <a href="./index.html#contact" class="btn btn-danger mt-3 px-4" hidden>Solicitar Demonstração</a>
       </div>
     </div>
 
     <!-- ======= Planos de Monitoramento ======= -->
-    <div class="zabbix-plans mt-5 text-center">
+    <div class="zabbix-plans mt-5 text-center" hidden>
       <h3 class="fw-bold mb-3">Escolha o Plano Ideal para Sua Empresa</h3>
       <p class="text-muted mb-5">Soluções flexíveis e escaláveis que acompanham o crescimento do seu negócio.</p>
 
@@ -174,6 +174,116 @@
   </div>
 </section>
 
+
+<!-- =========CALCULADORA ========-->
+
+<section class="py-5" id="zabbix-calculator">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
+          
+          <div class="p-4 text-white text-center" style="background: var(--dark); border-bottom: 4px solid var(--red);">
+            <h3 class="fw-bold mb-1">Simulador de Monitoramento Zabbix</h3>
+            <p class="small text-uppercase tracking-widest opacity-75">GLCTech - Observabilidade em Infraestrutura</p>
+          </div>
+
+          <div class="p-4 p-md-5 bg-white">
+            <div class="row g-4 mb-4">
+              
+              <div class="col-md-12">
+                <div class="p-3 border rounded shadow-sm bg-light">
+                  <label class="form-label fw-bold small text-muted">MODELO DE INFRAESTRUTURA</label>
+                  <select id="zabInfraType" class="form-select form-select-lg border-0 bg-white" onchange="calcularZabbix()">
+                    <option value="onprem" selected>On-Premises (Local / Datacenter Único)</option>
+                    <option value="cloud">Cloud / VMs (AWS, Azure, Google Cloud, DigitalOcean)</option>
+                    <option value="hybrid">Híbrido (Local + Cloud + Multi-sites)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="p-3 border rounded shadow-sm">
+                  <label class="form-label fw-bold small text-muted">SERVIDORES / VMs</label>
+                  <input type="number" id="zabHosts" class="form-control border-0 bg-light" value="5" min="0">
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="p-3 border rounded shadow-sm">
+                  <label class="form-label fw-bold small text-muted">NETWORK (SW/RT/AP)</label>
+                  <input type="number" id="zabNetwork" class="form-control border-0 bg-light" value="2" min="0">
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="p-3 border rounded shadow-sm">
+                  <label class="form-label fw-bold small text-muted">LINKS / INTERFACES</label>
+                  <input type="number" id="zabLinks" class="form-control border-0 bg-light" value="2" min="0">
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="p-3 border rounded shadow-sm">
+                  <label class="form-label fw-bold small text-muted">FILIAIS / SITES REMOTOS</label>
+                  <input type="number" id="zabSites" class="form-control border-0 bg-light" value="0" min="0">
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="p-3 border rounded shadow-sm">
+                  <label class="form-label fw-bold small text-muted">ZABBIX PROXIES</label>
+                  <input type="number" id="zabProxies" class="form-control border-0 bg-light" value="0" min="0">
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <div class="p-3 border rounded shadow-sm">
+                  <label class="form-label fw-bold small text-muted">NÍVEL DE GESTÃO E SUPORTE</label>
+                  <select id="zabLevel" class="form-select border-0 bg-light">
+                    <option value="1.0" data-tier="Essentials">Monitoramento Base (Alertas)</option>
+                    <option value="1.4" data-tier="Proactive" selected>Gestão Proativa (NOC 8x5)</option>
+                    <option value="2.0" data-tier="Critical">Missão Crítica (NOC 24x7)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="d-grid">
+              <button id="btnCalcularZabbix" class="btn btn-danger btn-lg fw-bold py-3 shadow">
+                RECALCULAR INVESTIMENTO ESTIMADO
+              </button>
+            </div>
+
+            <div id="zabbixResultArea" class="mt-5 pt-5 border-top" style="display:none;">
+              <div class="row g-5">
+                <div class="col-md-6">
+                  <h5 class="fw-bold mb-4" style="color: var(--dark)">RESUMO DA SOLUÇÃO:</h5>
+                  <div id="zabbixTechDetails" style="color: #555"></div>
+                </div>
+                
+                <div class="col-md-6 text-center">
+                  <div class="p-4 border border-2 rounded-4 shadow-sm" style="border-color: var(--red) !important;">
+                    <span class="text-muted small fw-bold">RECORRÊNCIA MENSAL (ESTIMADA)</span>
+                    <div class="h1 fw-bolder text-danger mb-0" id="zabTotalValue">R$ 0,00</div>
+                    <div class="text-muted mb-4 small" id="zabSetupRef"></div>
+                    
+                    <div class="text-start bg-light p-3 rounded">
+                        <input type="text" id="zabCompany" class="form-control mb-2" placeholder="Empresa">
+                        <input type="email" id="zabEmail" class="form-control mb-3" placeholder="E-mail Corporativo">
+                        <button id="sendZabbixQuote" class="btn btn-dark w-100 fw-bold">ENVIAR PROPOSTA FORMAL</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
    <!-- ======= FOOTER ======= -->
 <footer id="footer" class="footer">
   <div class="container footer-top">
@@ -193,6 +303,7 @@
           <li><i class="bi bi-chevron-right"></i> <a href="#home">Home</a></li>
           <li><i class="bi bi-chevron-right"></i> <a href="#about">Sobre</a></li>
           <li><i class="bi bi-chevron-right"></i> <a href="#services">Serviços</a></li>
+          <li><i class="bi bi-chevron-right"></i><a href="https://ty0ci.share.hsforms.com/2dDZ5-CdFTKektziqcbgsTQ" target="_blank" rel="noopener">Trabalhe Conosco</a></li>
           <li><i class="bi bi-chevron-right"></i> <a href="politica.html" target="_blank">Política de Privacidade</a></li>
           <li><i class="bi bi-chevron-right"></i> <a href="termos.html" target="_blank">Termos de Uso</a></li>
         </ul>
@@ -221,6 +332,120 @@
     <p>© 2015 Copyright <strong>GLCTech Tecnologia</strong> All Rights Reserved</p>
   </div>
 </footer>
+
+
+
+
+
+
+
+
+<!-- ========= SCRIPT CALCULADORA ======-->
+
+
+<script>
+
+
+ let dadosZabbix = {};
+
+function calcularZabbix() {
+    const infraType = document.getElementById('zabInfraType').value;
+    const hosts = parseInt(document.getElementById('zabHosts').value) || 0;
+    const network = parseInt(document.getElementById('zabNetwork').value) || 0;
+    const links = parseInt(document.getElementById('zabLinks').value) || 0;
+    const sites = parseInt(document.getElementById('zabSites').value) || 0;
+    const proxies = parseInt(document.getElementById('zabProxies').value) || 0;
+    const nivel = document.getElementById('zabLevel');
+
+    // CONFIGURAÇÃO DE PREÇOS POR TIPO DE INFRA
+    let multiplicadorInfra = 1.0;
+    let labelInfra = "On-Premises";
+
+    if (infraType === "cloud") {
+        multiplicadorInfra = 1.2; // Custo Cloud é +20% (devido a integrações API/CloudWatch/Azure Monitor)
+        labelInfra = "Cloud / VMs";
+    } else if (infraType === "hybrid") {
+        multiplicadorInfra = 1.35; // Híbrido é +35% (Complexidade de VPN e Túneis)
+        labelInfra = "Híbrido (Local + Cloud)";
+    }
+
+    const precoHost = 40.00 * multiplicadorInfra;
+    const precoNet = 30.00 * multiplicadorInfra;
+    const precoLink = 15.00;
+    const precoSite = 75.00;
+    const precoProxy = 100.00;
+
+    // Cálculo Mensal
+    const totalItens = (hosts * precoHost) + (network * precoNet) + (links * precoLink) + (sites * precoSite) + (proxies * precoProxy);
+    const totalMensal = totalItens * parseFloat(nivel.value);
+
+    // Setup: R$ 1.200 base + R$ 350 por Proxy
+    const setupTotal = 1200 + (proxies * 350);
+
+    const formatar = (v) => v.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'});
+
+    dadosZabbix = {
+        total: formatar(totalMensal),
+        setup: formatar(setupTotal),
+        infra: labelInfra,
+        nivel: nivel.options[nivel.selectedIndex].dataset.tier,
+        escopo: `${hosts} Hosts, ${network} Ativos, ${links} Links, ${sites} Sites, ${proxies} Proxies`
+    };
+
+    document.getElementById('zabbixTechDetails').innerHTML = `
+        <div class="mb-2"><i class="fas fa-layer-group text-danger"></i> <strong>Cenário:</strong> ${labelInfra}</div>
+        <div class="mb-2"><i class="fas fa-server text-danger"></i> <strong>Hosts:</strong> ${hosts} Servidores/VMs</div>
+        <div class="mb-2"><i class="fas fa-network-wired text-danger"></i> <strong>Ativos:</strong> ${network} Dispositivos</div>
+        <div class="mb-2"><i class="fas fa-sitemap text-danger"></i> <strong>Topologia:</strong> ${sites} Filiais / ${proxies} Proxies</div>
+        <div class="mt-3 p-3 bg-light rounded small text-dark">
+            <strong>Nível de Gestão:</strong> ${dadosZabbix.nivel}<br>
+            Monitoramento de disponibilidade, latência e performance em tempo real.
+        </div>
+    `;
+
+    document.getElementById('zabTotalValue').innerText = dadosZabbix.total;
+    document.getElementById('zabSetupRef').innerText = `Setup de Implantação: ${dadosZabbix.setup}`;
+    document.getElementById('zabbixResultArea').style.display = 'block';
+}
+
+document.getElementById('btnCalcularZabbix').addEventListener('click', calcularZabbix);
+
+document.getElementById('sendZabbixQuote').addEventListener('click', function() {
+    const empresa = document.getElementById('zabCompany').value;
+    const email = document.getElementById('zabEmail').value;
+
+    if(!empresa || !email.includes('@')) {
+        alert('Por favor, informe empresa e e-mail válido.');
+        return;
+    }
+
+    const destinatario = "contato@glctech.com.br";
+    const assunto = `SOLICITAÇÃO ZABBIX (${dadosZabbix.infra}): ${empresa}`;
+    
+    const corpo = 
+`Olá Equipe GLCTech,
+
+Uma nova simulação de monitoramento foi realizada:
+
+CLIENTE: ${empresa.toUpperCase()}
+E-MAIL: ${email}
+INFRAESTRUTURA: ${dadosZabbix.infra}
+GESTÃO: ${dadosZabbix.nivel}
+
+DETALHES DO ESCOPO:
+${dadosZabbix.escopo}
+
+--------------------------------------------------
+SETUP ESTIMADO: ${dadosZabbix.setup}
+MENSALIDADE ESTIMADA: ${dadosZabbix.total}
+==================================================
+
+Sistema de Cotação - GLCTech`;
+
+    window.open(`mailto:${destinatario}?subject=${encodeURIComponent(assunto)}&body=${encodeURIComponent(corpo)}`, '_blank');
+});
+</script>
+
 
   <!-- ======= SCRIPT DO MENU HAMBÚRGUER ======= -->
   <script>
@@ -268,5 +493,8 @@
       window.addEventListener("scroll", activateMenuOnScroll);
     });
   </script>
+<!-- Start of HubSpot Embed Code -->
+<script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/50295618.js"></script>
+<!-- End of HubSpot Embed Code -->
 </body>
 </html>

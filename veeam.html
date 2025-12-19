@@ -91,6 +91,104 @@
     </section>
   </main>
 
+
+
+
+
+
+  <!-- =========CALCULADORA ========-->
+
+<section class="py-5" id="veeam-calculator">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-9">
+        <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
+          
+          <div class="p-4 text-white text-center" style="background: var(--dark); border-bottom: 4px solid var(--red);">
+            <h3 class="fw-bold mb-1">Simulador Veeam Data Platform</h3>
+            <p class="small text-uppercase tracking-widest opacity-75">Cálculo baseado em Licenciamento Universal (VUL)</p>
+          </div>
+
+          <div class="p-4 p-md-5 bg-white">
+            <div class="row g-4 mb-4">
+              <div class="col-md-6">
+                <div class="p-3 border rounded shadow-sm">
+                  <label class="form-label fw-bold small text-muted">QTD. DE INSTÂNCIAS (VMs/Servidores)</label>
+                  <input type="number" id="qtdWorkloads" class="form-control form-control-lg border-0 bg-light" value="10" min="10" step="10">
+                  <small class="text-muted">Mínimo de 10 instâncias (1 pacote VUL)</small>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="p-3 border rounded shadow-sm">
+                  <label class="form-label fw-bold small text-muted">EDIÇÃO DA PLATAFORMA</label>
+                  <select id="veeamEdition" class="form-select form-select-lg border-0 bg-light">
+                    <option value="1200" data-tier="Foundation">Foundation (Backup & Recov.)</option>
+                    <option value="1650" data-tier="Advanced" selected>Advanced (Monitoramento + I/O)</option>
+                    <option value="2100" data-tier="Premium">Premium (Cyber Secure + Recovery)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="p-3 border rounded shadow-sm">
+                  <label class="form-label fw-bold small text-muted">NÍVEL DE SUPORTE GLCTECH</label>
+                  <select id="veeamSupport" class="form-select form-select-lg border-0 bg-light">
+                    <option value="0">Produção (24x7 Veeam Original)</option>
+                    <option value="800">Managed Backup (Monitoramento GLCTech)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="p-3 border rounded shadow-sm">
+                  <label class="form-label fw-bold small text-muted">CONTRATO (SUBSTRICPTION)</label>
+                  <select id="veeamPeriod" class="form-select form-select-lg border-0 bg-light">
+                    <option value="1">1 Ano (Pagamento Anual)</option>
+                    <option value="2.8">3 Anos (Desconto Plurianual)</option>
+                    <option value="4.5">5 Anos (Máximo Desconto)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="d-grid">
+              <button onclick="calcularVeeam()" class="btn btn-danger btn-lg fw-bold py-3 shadow">
+                SIMULAR INVESTIMENTO VEEAM
+              </button>
+            </div>
+
+            <div id="veeamResultArea" class="mt-5 pt-5 border-top" style="display:none;">
+              <div class="row g-5">
+                <div class="col-md-6">
+                  <h5 class="fw-bold mb-4" style="color: var(--dark)">DETALHES DA SOLUÇÃO:</h5>
+                  <ul class="list-unstyled" id="veeamTechDetails" style="color: #555">
+                    </ul>
+                </div>
+                
+                <div class="col-md-6 text-center">
+                  <div class="p-4 border border-2 rounded-4 shadow-sm" style="border-color: var(--red) !important;">
+                    <span class="text-muted small fw-bold">VALOR TOTAL ESTIMADO</span>
+                    <div class="h1 fw-bolder text-danger mb-0" id="veeamTotalValue">R$ 0,00</div>
+                    <div class="text-muted mb-4 small" id="veeamMonthlyRef"></div>
+                    
+                    <div class="text-start bg-light p-3 rounded">
+                        <input type="text" id="veeamCompany" class="form-control mb-2" placeholder="Empresa">
+                        <input type="email" id="veeamEmail" class="form-control mb-3" placeholder="E-mail Corporativo">
+                        <button class="btn btn-dark w-100 fw-bold">SOLICITAR PROPOSTA PDF</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
   <!-- ======= FOOTER ======= -->
   assets<footer id="footer" class="footer">
   <div class="container footer-top">
@@ -109,6 +207,7 @@
           <li><i class="bi bi-chevron-right"></i> <a href="./index.html#home">Home</a></li>
           <li><i class="bi bi-chevron-right"></i> <a href="./index.html#about">Sobre</a></li>
           <li><i class="bi bi-chevron-right"></i> <a href="./index.html#services">Serviços</a></li>
+          <li><i class="bi bi-chevron-right"></i><a href="https://ty0ci.share.hsforms.com/2dDZ5-CdFTKektziqcbgsTQ" target="_blank" rel="noopener" >Trabalhe Conosco</a></li>
           <li><i class="bi bi-chevron-right"></i> <a href="politica.html">Política de Privacidade</a></li>
           <li><i class="bi bi-chevron-right"></i> <a href="termos.html">Termos de Uso</a></li>
         </ul>
@@ -131,6 +230,121 @@
     <p>© 2015 Copyright <strong>GLCTech Tecnologia</strong> All Rights Reserved</p>
   </div>
 </footer>
+
+
+
+
+
+
+<!-- ========= SCRIPT CALCULADORA ======-->
+
+
+<script>
+  let dadosCotacaoVeeam = {};
+
+function calcularVeeam() {
+    // Captura dos elementos específicos do Veeam
+    const qtd = parseInt(document.getElementById('qtdWorkloads').value) || 10;
+    const edicao = document.getElementById('veeamEdition');
+    const suporte = document.getElementById('veeamSupport');
+    const periodo = document.getElementById('veeamPeriod');
+    
+    // VALORES REAIS ESTIMADOS (VUL - Veeam Universal License)
+    // Preço médio anual por instância (Unidade)
+    const precoBaseVUL = parseFloat(edicao.value); 
+    const custoSuporteExtra = parseFloat(suporte.value);
+    const multiplicadorPeriodo = parseFloat(periodo.value);
+
+    // O Veeam é vendido em pacotes de 10 (VUL)
+    const pacotes = Math.ceil(qtd / 10);
+    
+    // CÁLCULO: (Preço Instância * Qtd + Suporte por Pacote) * Multiplicador de Anos
+    const total = ((precoBaseVUL * qtd) + (custoSuporteExtra * pacotes)) * multiplicadorPeriodo;
+    const totalStr = total.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'});
+    
+    dadosCotacaoVeeam = {
+        total: totalStr,
+        plano: edicao.options[edicao.selectedIndex].dataset.tier,
+        instancias: qtd,
+        suporte: suporte.options[suporte.selectedIndex].text,
+        periodo: periodo.options[periodo.selectedIndex].text,
+        multiplicador: multiplicadorPeriodo
+    };
+
+    // Atualização do HTML de Detalhes Técnicos
+    document.getElementById('veeamTechDetails').innerHTML = `
+        <li class="mb-2"><i class="fas fa-server text-danger me-2"></i> Solução: <strong>Veeam ${dadosCotacaoVeeam.plano}</strong></li>
+        <li class="mb-2"><i class="fas fa-check-circle text-danger me-2"></i> Licenciamento <strong>Universal (VUL)</strong></li>
+        <li class="mb-2"><i class="fas fa-box text-danger me-2"></i> Capacidade: <strong>${qtd} Workloads</strong> (VMs, Físico ou Cloud)</li>
+        <li class="mb-2"><i class="fas fa-headset text-danger me-2"></i> Suporte: <strong>${dadosCotacaoVeeam.suporte}</strong></li>
+        <li class="mb-2"><i class="fas fa-history text-danger me-2"></i> Vigência: <strong>${dadosCotacaoVeeam.periodo}</strong></li>
+    `;
+
+    document.getElementById('veeamTotalValue').innerText = totalStr;
+    
+    // Projeção mensal baseada no tempo de contrato
+    const mesesContrato = (multiplicadorPeriodo >= 4.5) ? 60 : (multiplicadorPeriodo >= 2.8 ? 36 : 12);
+    document.getElementById('veeamMonthlyRef').innerText = `Referência mensal: ${(total / mesesContrato).toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})}`;
+    
+    document.getElementById('veeamResultArea').style.display = 'block';
+}
+
+// Evento do Botão Calcular
+document.getElementById('btnCalcularVeeam').addEventListener('click', calcularVeeam);
+
+// Evento de Envio de Cotação por E-mail
+document.getElementById('sendVeeamQuote').addEventListener('click', function() {
+    const empresa = document.getElementById('veeamCompany').value;
+    const email = document.getElementById('veeamEmail').value;
+
+    if(!empresa || !email.includes('@')) {
+        alert('Por favor, informe a empresa e um e-mail corporativo válido.');
+        return;
+    }
+
+    const destinatario = "contato@glctech.com.br";
+    const assunto = `PROPOSTA VEEAM VUL: ${empresa}`;
+    
+    const corpo = 
+`Prezada Equipe Comercial GLCTech,
+
+Uma nova simulação de Veeam Data Platform foi gerada. 
+Seguem os dados técnicos para elaboração da proposta oficial:
+
+==================================================
+        IDENTIFICAÇÃO DO CLIENTE
+==================================================
+EMPRESA: ${empresa.toUpperCase()}
+E-MAIL: ${email}
+
+==================================================
+        CONFIGURAÇÃO VEEAM (VUL)
+==================================================
+EDIÇÃO: Veeam Data Platform ${dadosCotacaoVeeam.plano}
+QUANTIDADE: ${dadosCotacaoVeeam.instancias} Instâncias (Workloads)
+SUPORTE: ${dadosCotacaoVeeam.suporte}
+PERÍODO: ${dadosCotacaoVeeam.periodo}
+--------------------------------------------------
+INVESTIMENTO ESTIMADO: ${dadosCotacaoVeeam.total}
+==================================================
+
+O cliente aguarda o contato para análise de infraestrutura e Storage.
+
+Atenciosamente,
+Portal de Vendas - GLCTech`;
+
+    const mailtoUrl = `mailto:${destinatario}?subject=${encodeURIComponent(assunto)}&body=${encodeURIComponent(corpo)}`;
+    window.open(mailtoUrl, '_blank');
+});
+
+// Execução inicial
+calcularVeeam();
+</script>
+
+
+
+
+
 
   <!-- ======= SCRIPT DO MENU HAMBÚRGUER ======= -->
   <script>
@@ -178,5 +392,8 @@
       window.addEventListener("scroll", activateMenuOnScroll);
     });
   </script>
+<!-- Start of HubSpot Embed Code -->
+<script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/50295618.js"></script>
+<!-- End of HubSpot Embed Code -->
 </body>
 </html>
