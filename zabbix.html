@@ -182,7 +182,6 @@
     <div class="row justify-content-center">
       <div class="col-lg-10">
         <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
-          
           <div class="p-4 text-white text-center" style="background: var(--dark); border-bottom: 4px solid var(--red);">
             <h3 class="fw-bold mb-1">Simulador de Monitoramento Zabbix</h3>
             <p class="small text-uppercase tracking-widest opacity-75">GLCTech - Observabilidade em Infraestrutura</p>
@@ -190,46 +189,16 @@
 
           <div class="p-4 p-md-5 bg-white">
             <div class="row g-4 mb-4">
-              
               <div class="col-md-12">
                 <div class="p-3 border rounded shadow-sm bg-light">
                   <label class="form-label fw-bold small text-muted">MODELO DE INFRAESTRUTURA</label>
                   <select id="zabInfraType" class="form-select form-select-lg border-0 bg-white" onchange="calcularZabbix()">
-                    <option value="onprem" selected>On-Premises (Local / Datacenter Único)</option>
-                    <option value="cloud">Cloud / VMs (AWS, Azure, Google Cloud, DigitalOcean)</option>
-                    <option value="hybrid">Híbrido (Local + Cloud + Multi-sites)</option>
+                    <option value="onprem" selected>On-Premises (Local / Datacenter)</option>
+                    <option value="cloud">Cloud / VMs (AWS, Azure, GCP)</option>
+                    <option value="hybrid">Híbrido (Local + Cloud)</option>
                   </select>
                 </div>
               </div>
-
-              <div class="col-md-12 mb-3">
-  <div class="p-3 border rounded shadow-sm bg-light text-center">
-    <label class="form-label fw-bold small text-muted d-block mb-3 text-uppercase">Arquitetura de Instalação</label>
-    <div class="btn-group w-100" role="group">
-      <input type="radio" class="btn-check" name="archOption" id="archAio" value="aio" checked onchange="calcularZabbix()">
-      <label class="btn btn-outline-danger" for="archAio">All-in-One</label>
-
-      <input type="radio" class="btn-check" name="archOption" id="arch2in1" value="2in1" onchange="calcularZabbix()">
-      <label class="btn btn-outline-danger" for="arch2in1">2 em 1 (App+DB)</label>
-
-      <input type="radio" class="btn-check" name="archOption" id="archHa" value="ha" onchange="calcularZabbix()">
-      <label class="btn btn-outline-danger" for="archHa">HA (High Availability)</label>
-    </div>
-  </div>
-</div>
-
-<div class="col-md-12 mb-4">
-  <div class="p-3 border rounded shadow-sm bg-light text-center">
-    <label class="form-label fw-bold small text-muted d-block mb-3 text-uppercase">Visualização / Dashboards</label>
-    <div class="btn-group w-100" role="group">
-      <input type="radio" class="btn-check" name="grafanaOption" id="grafanaNo" value="no" checked onchange="calcularZabbix()">
-      <label class="btn btn-outline-dark" for="grafanaNo">Padrão Zabbix</label>
-
-      <input type="radio" class="btn-check" name="grafanaOption" id="grafanaYes" value="yes" onchange="calcularZabbix()">
-      <label class="btn btn-outline-dark" for="grafanaYes">Incluir Grafana</label>
-    </div>
-  </div>
-</div>
 
               <div class="col-md-4">
                 <div class="p-3 border rounded shadow-sm">
@@ -237,14 +206,12 @@
                   <input type="number" id="zabHosts" class="form-control border-0 bg-light" value="5" min="0" onchange="calcularZabbix()">
                 </div>
               </div>
-
               <div class="col-md-4">
                 <div class="p-3 border rounded shadow-sm">
                   <label class="form-label fw-bold small text-muted">NETWORK (SW/RT/AP)</label>
                   <input type="number" id="zabNetwork" class="form-control border-0 bg-light" value="2" min="0" onchange="calcularZabbix()">
                 </div>
               </div>
-
               <div class="col-md-4">
                 <div class="p-3 border rounded shadow-sm">
                   <label class="form-label fw-bold small text-muted">LINKS / INTERFACES</label>
@@ -252,17 +219,33 @@
                 </div>
               </div>
 
-              <div class="col-md-6">
-                <div class="p-3 border rounded shadow-sm">
-                  <label class="form-label fw-bold small text-muted">FILIAIS / SITES REMOTOS</label>
-                  <input type="number" id="zabSites" class="form-control border-0 bg-light" value="0" min="0" onchange="calcularZabbix()">
+
+              <div class="col-md-12">
+                <div class="p-3 border rounded shadow-sm bg-light">
+                  <label class="form-label fw-bold small text-muted d-block mb-3 text-uppercase text-center">Arquitetura de Instalação</label>
+                  <div class="btn-group w-100" role="group">
+                    <input type="radio" class="btn-check" name="archOption" id="archAio" value="aio" checked onchange="calcularZabbix()">
+                    <label class="btn btn-outline-danger" for="archAio">All-in-One</label>
+
+                    <input type="radio" class="btn-check" name="archOption" id="arch2in1" value="2in1" onchange="calcularZabbix()">
+                    <label class="btn btn-outline-danger" for="arch2in1">2 em 1 (App+DB)</label>
+
+                    <input type="radio" class="btn-check" name="archOption" id="archHa" value="ha" onchange="calcularZabbix()">
+                    <label class="btn btn-outline-danger" for="archHa">HA (High Availability)</label>
+                  </div>
                 </div>
               </div>
 
-              <div class="col-md-6">
-                <div class="p-3 border rounded shadow-sm">
-                  <label class="form-label fw-bold small text-muted">ZABBIX PROXIES</label>
-                  <input type="number" id="zabProxies" class="form-control border-0 bg-light" value="0" min="0" onchange="calcularZabbix()">
+              <div class="col-md-12">
+                <div class="p-3 border rounded shadow-sm bg-light">
+                  <label class="form-label fw-bold small text-muted d-block mb-3 text-uppercase text-center">Visualização / Dashboards</label>
+                  <div class="btn-group w-100" role="group">
+                    <input type="radio" class="btn-check" name="grafanaOption" id="grafanaNo" value="no" checked onchange="calcularZabbix()">
+                    <label class="btn btn-outline-dark" for="grafanaNo">Padrão Zabbix</label>
+
+                    <input type="radio" class="btn-check" name="grafanaOption" id="grafanaYes" value="yes" onchange="calcularZabbix()">
+                    <label class="btn btn-outline-dark" for="grafanaYes">Incluir Grafana</label>
+                  </div>
                 </div>
               </div>
 
@@ -279,24 +262,20 @@
             </div>
 
             <div class="d-grid">
-              <button id="btnCalcularZabbix" class="btn btn-danger btn-lg fw-bold py-3 shadow">
-                RECALCULAR INVESTIMENTO ESTIMADO
-              </button>
+              <button id="btnCalcularZabbix" class="btn btn-danger btn-lg fw-bold py-3 shadow">RECALCULAR INVESTIMENTO</button>
             </div>
 
             <div id="zabbixResultArea" class="mt-5 pt-5 border-top" style="display:none;">
               <div class="row g-5">
-                <div class="col-md-6">
-                  <h5 class="fw-bold mb-4" style="color: var(--dark)">RESUMO DA SOLUÇÃO:</h5>
-                  <div id="zabbixTechDetails" style="color: #555"></div>
+                <div class="col-md-7">
+                  <h5 class="fw-bold mb-4" style="color: var(--dark)">RESUMO DETALHADO DA PROPOSTA:</h5>
+                  <div id="zabbixTechDetails" class="p-3 bg-white border rounded shadow-sm"></div>
                 </div>
-                
-                <div class="col-md-6 text-center">
+                <div class="col-md-5 text-center">
                   <div class="p-4 border border-2 rounded-4 shadow-sm" style="border-color: var(--red) !important;">
-                    <span class="text-muted small fw-bold">RECORRÊNCIA MENSAL (ESTIMADA)</span>
+                    <span class="text-muted small fw-bold">RECORRÊNCIA MENSAL ESTIMADA</span>
                     <div class="h1 fw-bolder text-danger mb-0" id="zabTotalValue">R$ 0,00</div>
                     <div class="text-muted mb-4 small" id="zabSetupRef"></div>
-                    
                     <div class="text-start bg-light p-3 rounded">
                         <input type="text" id="zabCompany" class="form-control mb-2" placeholder="Empresa">
                         <input type="email" id="zabEmail" class="form-control mb-3" placeholder="E-mail Corporativo">
@@ -376,67 +355,64 @@
 let dadosZabbix = {};
 
 function calcularZabbix() {
-    // 1. Captura de Elementos de Infraestrutura e Inputs Numéricos
     const infraType = document.getElementById('zabInfraType').value;
     const hosts = parseInt(document.getElementById('zabHosts').value) || 0;
     const network = parseInt(document.getElementById('zabNetwork').value) || 0;
     const links = parseInt(document.getElementById('zabLinks').value) || 0;
-    const sites = parseInt(document.getElementById('zabSites').value) || 0;
-    const proxies = parseInt(document.getElementById('zabProxies').value) || 0;
     const nivel = document.getElementById('zabLevel');
 
-    // 2. Captura segura dos novos botões seletores (Radio Buttons)
-    // Se não encontrar nenhum selecionado, assume o padrão para evitar erro de execução
     const archRadio = document.querySelector('input[name="archOption"]:checked');
     const archType = archRadio ? archRadio.value : 'aio';
+    const hasGrafana = document.querySelector('input[name="grafanaOption"]:checked')?.value || 'no';
 
-    const grafanaRadio = document.querySelector('input[name="grafanaOption"]:checked');
-    const hasGrafana = grafanaRadio ? grafanaRadio.value : 'no';
-
-    // 3. Lógica de Precificação de Arquitetura
-    let custoAdicionalSetup = 0;
-    let multiplicadorComplexidade = 1.0;
-    let labelArch = "All-in-One";
-
-    if (archType === "2in1") {
-        custoAdicionalSetup = 850;      
-        multiplicadorComplexidade = 1.15; 
-        labelArch = "2 em 1 (App + Banco Separado)";
-    } else if (archType === "ha") {
-        custoAdicionalSetup = 2800;     
-        multiplicadorComplexidade = 1.45; 
-        labelArch = "Alta Disponibilidade (HA Cluster)";
-    }
-
-    // 4. Lógica Grafana
-    let labelGrafana = "Não";
-    if (hasGrafana === "yes") {
-        custoAdicionalSetup += 600;      
-        multiplicadorComplexidade += 0.05; 
-        labelGrafana = "Sim (Instalação + Integração)";
-    }
-
-    // 5. Configuração de Preços por Tipo de Infra
+    // 1. Definição de Preços por Infra (Preços Cloud Reais em BRL)
     let multiplicadorInfra = 1.0;
     let labelInfra = "On-Premises";
     if (infraType === "cloud") {
-        multiplicadorInfra = 1.2; 
-        labelInfra = "Cloud / VMs";
+        multiplicadorInfra = 1.30; 
+        labelInfra = "Cloud / VMs (AWS/Azure/GCP)";
     } else if (infraType === "hybrid") {
-        multiplicadorInfra = 1.35; 
+        multiplicadorInfra = 1.45;
         labelInfra = "Híbrido (Local + Cloud)";
     }
 
-    const precoHost = 40.00 * multiplicadorInfra;
-    const precoNet = 30.00 * multiplicadorInfra;
-    const precoLink = 15.00;
-    const precoSite = 75.00;
-    const precoProxy = 100.00;
+    const vUnitHost = 45.00 * multiplicadorInfra;
+    const vUnitNet = 35.00 * multiplicadorInfra;
+    const vUnitLink = 18.00;
 
-    // 6. Cálculos Finais
-    const totalItens = (hosts * precoHost) + (network * precoNet) + (links * precoLink) + (sites * precoSite) + (proxies * precoProxy);
-    const totalMensal = (totalItens * parseFloat(nivel.value)) * multiplicadorComplexidade;
-    const setupTotal = 1200 + (proxies * 350) + custoAdicionalSetup;
+    // 2. Arquitetura de Instalação - Definição de Qtd Servidores e Custos
+    let labelArch = "All-in-One";
+    let qtdServidoresArch = 1;
+    let vUnitArch = 0; // Custo mensal adicional de gestão por complexidade técnica
+    let custoSetupArch = 0;
+
+    if (archType === "aio") {
+        labelArch = "All-in-One (Servidor Único)";
+        qtdServidoresArch = 1;
+        vUnitArch = 50.00; // Gestão base do SO
+        custoSetupArch = 0;
+    } else if (archType === "2in1") {
+        labelArch = "2 em 1 (App + Banco)";
+        qtdServidoresArch = 2;
+        vUnitArch = 120.00; // Gestão de 2 SO + Tunning DB
+        custoSetupArch = 950;
+    } else if (archType === "ha") {
+        labelArch = "Alta Disponibilidade (HA)";
+        qtdServidoresArch = 3; // Mínimo para HA robusto (2 App + 1 DB ou Cluster)
+        vUnitArch = 280.00; // Gestão de Cluster/Sincronismo
+        custoSetupArch = 3200;
+    }
+
+    // 3. Cálculos de Totais
+    const fatorGestao = parseFloat(nivel.value);
+    
+    const totalHosts = (hosts * vUnitHost) * fatorGestao;
+    const totalNet = (network * vUnitNet) * fatorGestao;
+    const totalLinks = (links * vUnitLink) * fatorGestao;
+    const totalArch = (qtdServidoresArch * vUnitArch) * fatorGestao;
+
+    const totalMensal = totalHosts + totalNet + totalLinks + totalArch + (hasGrafana === "yes" ? 150 : 0);
+    const setupTotal = 1500 + custoSetupArch + (hasGrafana === "yes" ? 650 : 0);
 
     const formatar = (v) => v.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'});
 
@@ -445,63 +421,77 @@ function calcularZabbix() {
         setup: formatar(setupTotal),
         infra: labelInfra,
         arquitetura: labelArch,
-        grafana: labelGrafana,
         nivel: nivel.options[nivel.selectedIndex].dataset.tier,
-        escopo: `${hosts} Hosts, ${network} Ativos, ${links} Links, ${sites} Sites, ${proxies} Proxies`
+        descNivel: nivel.options[nivel.selectedIndex].text
     };
 
-    // 7. Atualização da Interface
-    const resultArea = document.getElementById('zabbixResultArea');
-    const techDetails = document.getElementById('zabbixTechDetails');
+    // 4. Montagem do Resumo com Tabela Detalhada
+    document.getElementById('zabbixTechDetails').innerHTML = `
+        <div class="mb-3">
+            <h6 class="fw-bold text-danger border-bottom pb-1">COMPOSIÇÃO DA SOLUÇÃO</h6>
+            <small class="d-block"><strong>Cenário:</strong> ${labelInfra}</small>
+            <small class="d-block"><strong>Suporte:</strong> ${dadosZabbix.descNivel}</small>
+        </div>
 
-    if (techDetails) {
-        techDetails.innerHTML = `
-            <div class="mb-2"><i class="fas fa-microchip text-danger"></i> <strong>Arquitetura:</strong> ${labelArch}</div>
-            <div class="mb-2"><i class="fas fa-chart-line text-danger"></i> <strong>Grafana:</strong> ${labelGrafana}</div>
-            <div class="mb-2"><i class="fas fa-layer-group text-danger"></i> <strong>Infra:</strong> ${labelInfra}</div>
-            <div class="mt-3 p-3 bg-light rounded small text-dark border-start border-danger border-3">
-                <strong>Resumo:</strong> Monitoramento para ${hosts} dispositivos no nível ${dadosZabbix.nivel}.
-            </div>
-        `;
-    }
+        <div class="table-responsive">
+            <table class="table table-sm table-borderless small align-middle">
+                <thead class="border-bottom">
+                    <tr class="text-muted">
+                        <th>Item (Recorrência)</th>
+                        <th>Qtd</th>
+                        <th>Unit.</th>
+                        <th class="text-end">Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Arquitetura: ${labelArch}</td>
+                        <td>${qtdServidoresArch}</td>
+                        <td>${formatar(vUnitArch)}</td>
+                        <td class="text-end">${formatar(totalArch)}</td>
+                    </tr>
+                    <tr>
+                        <td>Monitoramento Servidores/VMs</td>
+                        <td>${hosts}</td>
+                        <td>${formatar(vUnitHost)}</td>
+                        <td class="text-end">${formatar(totalHosts)}</td>
+                    </tr>
+                    <tr>
+                        <td>Monitoramento Ativos Rede</td>
+                        <td>${network}</td>
+                        <td>${formatar(vUnitNet)}</td>
+                        <td class="text-end">${formatar(totalNet)}</td>
+                    </tr>
+                    <tr>
+                        <td>Monitoramento Links</td>
+                        <td>${links}</td>
+                        <td>${formatar(vUnitLink)}</td>
+                        <td class="text-end">${formatar(totalLinks)}</td>
+                    </tr>
+                    ${hasGrafana === "yes" ? `<tr><td>Integração Grafana</td><td>1</td><td>R$ 150,00</td><td class="text-end">R$ 150,00</td></tr>` : ''}
+                </tbody>
+            </table>
+        </div>
+        <p class="text-muted mt-2" style="font-size: 0.7rem;">* Os valores mensais são ajustados conforme o nível de gestão e multiplicadores de infraestrutura.</p>
+    `;
 
     document.getElementById('zabTotalValue').innerText = dadosZabbix.total;
     document.getElementById('zabSetupRef').innerText = `Setup de Implantação: ${dadosZabbix.setup}`;
-    
-    if (resultArea) resultArea.style.display = 'block';
+    document.getElementById('zabbixResultArea').style.display = 'block';
 }
 
-// Inicializa os listeners após o carregamento da página
 document.addEventListener("DOMContentLoaded", () => {
-    const btnCalcular = document.getElementById('btnCalcularZabbix');
-    if (btnCalcular) {
-        btnCalcular.addEventListener('click', (e) => {
-            e.preventDefault();
-            calcularZabbix();
-        });
-    }
-
-    // Adiciona o evento de envio de proposta (correção do corpo do email)
-    const btnEmail = document.getElementById('sendZabbixQuote');
-    if (btnEmail) {
-        btnEmail.addEventListener('click', function() {
-            const empresa = document.getElementById('zabCompany').value;
-            const email = document.getElementById('zabEmail').value;
-
-            if(!empresa || !email.includes('@')) {
-                alert('Por favor, informe empresa e e-mail válido.');
-                return;
-            }
-
-            const destinatario = "contato@glctech.com.br";
-            const assunto = `SOLICITAÇÃO ZABBIX (${dadosZabbix.infra}): ${empresa}`;
-            const corpo = `Olá Equipe GLCTech,\n\nNova simulação realizada:\n\nCLIENTE: ${empresa.toUpperCase()}\nARQUITETURA: ${dadosZabbix.arquitetura}\nGRAFANA: ${dadosZabbix.grafana}\nGESTÃO: ${dadosZabbix.nivel}\nESCOPO: ${dadosZabbix.escopo}\n\nSETUP: ${dadosZabbix.setup}\nMENSALIDADE: ${dadosZabbix.total}`;
-
-            window.open(`mailto:${destinatario}?subject=${encodeURIComponent(assunto)}&body=${encodeURIComponent(corpo)}`, '_blank');
-        });
-    }
+    document.getElementById('btnCalcularZabbix').addEventListener('click', calcularZabbix);
+    document.getElementById('sendZabbixQuote').addEventListener('click', function() {
+        const empresa = document.getElementById('zabCompany').value;
+        const email = document.getElementById('zabEmail').value;
+        if(!empresa || !email.includes('@')) { alert('Dados inválidos.'); return; }
+        const destinatario = "contato@glctech.com.br";
+        const assunto = `SIMULAÇÃO ZABBIX: ${empresa.toUpperCase()}`;
+        const corpo = `Olá GLCTech,\n\nNova simulação:\nArquitetura: ${dadosZabbix.arquitetura}\nGestão: ${dadosZabbix.nivel}\nSetup: ${dadosZabbix.setup}\nMensal: ${dadosZabbix.total}`;
+        window.open(`mailto:${destinatario}?subject=${encodeURIComponent(assunto)}&body=${encodeURIComponent(corpo)}`, '_blank');
+    });
 });
-
 /**
  * Event Listener para Envio de Proposta via Mailto
  */
