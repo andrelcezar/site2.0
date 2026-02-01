@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free IT Assessment - GLCTech</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Variáveis de Cor baseadas no main.css */
+        :root {
+            --dark: #2d2d2d;
+            --red: #e6262c;
+            --white: #ffffff;
+            --gray: #c9c9c9;
+            --light-bg: #f8f9fc; /* Um cinza muito claro para fundos secundários */
+        }
+        
+        /* Estilos Globais e Tipografia GLCTech */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--dark); /* Fundo principal escuro */
+            color: var(--dark); /* Será ajustado no container */
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: var(--white); /* Conteúdo principal em branco */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.4); /* Sombra mais escura para contraste */
+            border-radius: 8px;
+        }
+
+        /* Cabeçalho */
+        header {
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 3px solid var(--red); /* Linha divisória vermelha GLCTech */
+        }
+        header h1 {
+            color: var(--dark);
+            font-size: 2.2em;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        header p {
+            color: var(--dark);
+            font-size: 1.1em;
+        }
+        
+        /* Seção Principal */
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 30px 0;
+        }
+        .text-area {
+            flex: 1;
+            padding-right: 20px;
+            min-width: 300px;
+        }
+        /* Destaque do Formulário (Formulário em área mais clara que o fundo) */
+        .form-area {
+            flex-basis: 350px;
+            padding: 25px;
+            background-color: var(--light-bg); 
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* Lista de Benefícios */
+        .benefits ul {
+            list-style: none;
+            padding: 0;
+        }
+        .benefits li {
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            position: relative;
+            padding-left: 30px;
+            color: var(--dark);
+        }
+        .benefits li::before {
+            content: '✔'; /* Ícone de check GLCTech */
+            position: absolute;
+            left: 0;
+            color: var(--red); /* Cor de destaque GLCTech */
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        
+        /* Formulário */
+        .form-area h2 {
+            margin-top: 0;
+            color: var(--dark);
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: 600;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--gray);
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+        }
+        
+        /* Botão CTA Principal (Vermelho GLCTech) */
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background-color: var(--red); /* Cor de destaque GLCTech */
+            color: var(--white);
+            border: none;
+            border-radius: 6px;
+            font-size: 1.2em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .submit-btn:hover {
+            background-color: #c01e23; /* Vermelho um pouco mais escuro no hover */
+            transform: translateY(-2px);
+        }
+
+        .highlight-text {
+             color: var(--red);
+             font-weight: 600;
+        }
+
+        /* Rodapé da LP (simples) */
+        footer {
+            text-align: center;
+            padding: 20px 0 0;
+            border-top: 1px solid #ddd;
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .container {
+                margin: 20px 10px;
+                padding: 15px;
+            }
+            .content {
+                flex-direction: column;
+            }
+            .text-area {
+                padding-right: 0;
+                margin-bottom: 30px;
+            }
+            header h1 {
+                font-size: 1.8em;
+            }
+            .submit-btn {
+                 font-size: 1.1em;
+                 padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <img src="https://glctech.com.br/assets/logo/logo.png" alt="Logo GLCTech" style="max-width: 280px; margin-bottom: 15px;">
+            <h1>Tired of being caught off guard? Stop <span class="highlight-text">firefighting</span>!</h1>
+            <p>Request a <span class="highlight-text">free</span> IT assessment that shows WHERE your infrastructure is most likely to fail in the next 90 days.</p>
+        </header>
+
+        <div class="content">
+            <div class="text-area">
+                <h2>What GLCTech will do for you—at no cost:</h2>
+                <div class="benefits">
+                    <ul>
+                        <li>**Risk Identification:** Find the top 3 failure points draining productivity (overload, slowness, vulnerabilities).</li>
+                        <li>**Zabbix Visibility:** See how proactive monitoring removes guesswork and gives you <span class="highlight-text">24/7</span> control of your systems.</li>
+                        <li>**Action Plan:** Get a clear 1-page summary of what must be fixed **immediately** to ensure stability.</li>
+                        <li>**Focus on Your Business:** Free your team (or yourself) from constant vigilance and refocus on growth.</li>
+                    </ul>
+                </div>
+
+                <p style="font-style: italic; margin-top: 30px; border-left: 4px solid var(--red); padding-left: 15px; color: var(--dark);">**ZERO RISK:** This assessment is 100% non-invasive and with no obligation. Get peace of mind knowing your critical systems are protected.</p>
+            </div>
+
+            <div class="form-area">
+                <h2>Request Your Free Assessment Now!</h2>
+                <form id="leadForm">
+                    <div class="form-group">
+                        <label for="nome">Full Name*</label>
+                        <input type="text" id="nome" name="nome" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Business Email*</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="telefone">Phone (WhatsApp)*</label>
+                        <input type="tel" id="telefone" name="telefone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="empresa">Company Name*</label>
+                        <input type="text" id="empresa" name="empresa" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="servidores">Estimated Servers/IT Users*</label>
+                        <input type="text" id="servidores" name="servidores" placeholder="e.g., 5 Servers or 150 Users" required>
+                    </div>
+
+                    <button type="submit" class="submit-btn">GET MY FREE ASSESSMENT!</button>
+                    <p style="text-align: center; font-size: 0.8em; margin-top: 10px; color: #555;">We respect your privacy. No spam.</p>
+                
+                    <p id="formStatus" style="text-align:center; margin-top:10px; font-size:0.9rem;"></p>
+                </form>
+            </div>
+        </div>
+        
+        <footer>
+            &copy; 2026 GLCTech Technology. All rights reserved. | <a href="./politica.html">Privacy Policy</a>
+        </footer>
+    </div>
+
+
+<script>
+  // ========= CONFIG TRELLO =========
+  const TRELLO_KEY = "11b143c18d6fcb87a2f9b25f36720faa";
+  const TRELLO_TOKEN = "ATTA69715b07999e46e3683bceb1682ebe161b94012696f3f2b0d353d9974dc756f044543918";
+  const TRELLO_LIST_ID = "697fda441c287014bf078b72";
+  // ================================
+
+  document.getElementById("leadForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const statusEl = document.getElementById("formStatus");
+    const btn = this.querySelector('button[type="submit"]');
+
+    const nome = document.getElementById("nome").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const telefone = document.getElementById("telefone").value.trim();
+    const empresa = document.getElementById("empresa").value.trim();
+    const servidores = document.getElementById("servidores").value.trim();
+
+    // UX: feedback
+    btn.disabled = true;
+    const oldText = btn.textContent;
+    btn.textContent = "Submitting...";
+    statusEl.textContent = "";
+    statusEl.style.color = "";
+
+    const desc = `
+🧑 Nome: ${nome}
+📧 Email: ${email}
+📱 WhatsApp: ${telefone}
+🏢 Empresa: ${empresa}
+🖥️ Servidores/Usuários: ${servidores}
+
+📌 Source: Zabbix Assessment Landing Page (GLCTech)
+⏱️ Data: ${new Date().toLocaleString("en-US")}
+`;
+
+    try {
+      const resp = await fetch("https://api.trello.com/1/cards", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+          name: `Assessment Lead - ${empresa || nome}`,
+          desc: desc,
+          idList: TRELLO_LIST_ID,
+          key: TRELLO_KEY,
+          token: TRELLO_TOKEN
+        })
+      });
+
+      if (!resp.ok) {
+        const text = await resp.text();
+        throw new Error("Failed to create Trello card: " + text);
+      }
+
+      statusEl.style.color = "green";
+      statusEl.textContent = "✅ Received! A specialist will contact you shortly.";
+      this.reset();
+
+    } catch (err) {
+      console.error(err);
+      statusEl.style.color = "crimson";
+      statusEl.textContent = "❌ Could not submit right now. Please try again shortly.";
+    } finally {
+      btn.disabled = false;
+      btn.textContent = oldText;
+    }
+  });
+</script>
+
+</body>
+</html>
